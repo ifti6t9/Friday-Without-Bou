@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fff7ef">
+<title>বউ ছাড়া কত শুক্রবার?</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,"Noto Sans Bengali","Hind Siliguri",sans-serif;background:linear-gradient(135deg,#fff8ef,#ffe9df);color:#3d281f;padding:18px}
+.wrap{max-width:520px;margin:auto}
+.card{background:#fff;border:1px solid #efd9cc;border-radius:26px;padding:22px;box-shadow:0 18px 50px #7a43231c}
+.hero{text-align:center}.hero .em{font-size:50px}h1{font-size:28px;margin:8px 0}.muted{color:#806356;line-height:1.6;font-size:14px}
+label{display:block;font-weight:800;margin:14px 0 7px}
+input{width:100%;padding:13px;border:1px solid #dfc4b5;border-radius:13px;font-size:16px;background:#fff}
+button,.fb{width:100%;border:0;border-radius:14px;padding:14px;margin-top:14px;font-weight:850;font-size:16px;cursor:pointer;text-decoration:none;display:block;text-align:center}
+.primary{background:#e76f51;color:white}.secondary{background:#fff0e9;color:#b94f36}.fb{background:#1877f2;color:#fff}
+.result{display:none;text-align:center;background:#fff5e5;border-radius:18px;padding:16px;margin-top:18px}.num{font-size:50px;font-weight:950;color:#d95839}
+.certWrap{display:none;margin-top:18px}.certWrap h2{text-align:center}
+canvas{width:100%;height:auto;border-radius:14px;box-shadow:0 10px 28px #4d2d1c24;background:#fff}
+.dev{margin-top:18px;border-top:1px solid #eee;padding-top:18px;text-align:center}
+.dev h3{margin:0 0 5px}.dev p{margin:0 0 10px;color:#806356;font-size:13px}
+.note{text-align:center;font-size:12px;color:#96786b;margin:14px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <div class="card">
+  <div class="hero">
+   <div class="em">😄📅</div>
+   <h1>বউ ছাড়া কত শুক্রবার?</h1>
+   <div class="muted">নাম, জন্মতারিখ ও ছবি দিয়ে হিসাব করো—তারপর নিজের মজার সার্টিফিকেট বানাও!</div>
+  </div>
+
+  <label>তোমার নাম</label>
+  <input id="name" maxlength="35" placeholder="যেমন: Imran">
+
+  <label>জন্মতারিখ</label>
+  <input id="dob" type="date">
+
+  <label>তোমার ছবি</label>
+  <input id="photo" type="file" accept="image/*">
+
+  <button class="primary" id="make">হিসাব করে সার্টিফিকেট বানাও</button>
+
+  <div class="result" id="result">
+   <div class="num" id="count">০</div>
+   <b>টি শুক্রবার পার হয়েছে! 😅</b>
+   <div class="muted" id="details"></div>
+  </div>
+
+  <div class="certWrap" id="certWrap">
+   <h2>🏆 তোমার সার্টিফিকেট</h2>
+   <canvas id="cert" width="1200" height="1500"></canvas>
+   <button class="secondary" id="download">⬇️ Certificate Save (PNG)</button>
+   <button class="secondary" id="share">📤 Certificate Share</button>
+  </div>
+
+  <div class="dev">
+   <h3>👨‍💻 Developer</h3>
+   <p>Website Developer — Imran</p>
+   <a class="fb" href="https://www.facebook.com/share/1BgxkcRz3S/" target="_blank" rel="noopener">📞 Contact Developer on Facebook</a>
+  </div>
+  <div class="note">শুধু বিনোদনের জন্য তৈরি ✨</div>
+ </div>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+$('dob').max=new Date().toISOString().split('T')[0];
+let imageObj=null;
+
+$('photo').addEventListener('change',e=>{
+ const f=e.target.files[0]; if(!f){imageObj=null;return}
+ const r=new FileReader(); r.onload=()=>{const im=new Image();im.onload=()=>imageObj=im;im.src=r.result};r.readAsDataURL(f);
+});
+
+function fridayCount(s){
+ const start=new Date(s+'T00:00:00'), end=new Date();
+ if(isNaN(start)||start>end)return null;
+ const first=new Date(start); first.setDate(first.getDate()+((5-first.getDay()+7)%7));
+ if(first>end)return 0;
+ return Math.floor((end-first)/(7*86400000))+1;
+}
+function bn(n){return Number(n).toLocaleString('bn-BD')}
+function roundRect(ctx,x,y,w,h,r){
+ ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();
+}
+function coverImage(ctx,img,x,y,w,h){
+ const ir=img.width/img.height, br=w/h;let sx=0,sy=0,sw=img.width,sh=img.height;
+ if(ir>br){sw=img.height*br;sx=(img.width-sw)/2}else{sh=img.width/br;sy=(img.height-sh)/2}
+ ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h);
+}
+function drawCert(name,n){
+ const c=$('cert'),ctx=c.getContext('2d');
+ const g=ctx.createLinearGradient(0,0,1200,1500);g.addColorStop(0,'#fff9ed');g.addColorStop(1,'#ffe8dd');ctx.fillStyle=g;ctx.fillRect(0,0,1200,1500);
+ ctx.strokeStyle='#d98b58';ctx.lineWidth=12;ctx.strokeRect(35,35,1130,1430);
+ ctx.strokeStyle='#edc49f';ctx.lineWidth=3;ctx.strokeRect(58,58,1084,1384);
+
+ ctx.textAlign='center';ctx.fillStyle='#633a29';ctx.font='900 64px sans-serif';ctx.fillText('CERTIFICATE',600,160);
+ ctx.font='700 36px sans-serif';ctx.fillStyle='#a15d3e';ctx.fillText('বউ ছাড়া কত শুক্রবার?',600,220);
+
+ ctx.save();ctx.beginPath();ctx.arc(600,470,175,0,Math.PI*2);ctx.clip();
+ if(imageObj) coverImage(ctx,imageObj,425,295,350,350);
+ else {ctx.fillStyle='#f1d9ca';ctx.fillRect(425,295,350,350);ctx.font='120px sans-serif';ctx.fillStyle='#8d6b5d';ctx.fillText('👤',600,520)}
+ ctx.restore();ctx.strokeStyle='#d98b58';ctx.lineWidth=10;ctx.beginPath();ctx.arc(600,470,180,0,Math.PI*2);ctx.stroke();
+
+ ctx.fillStyle='#3d281f';ctx.font='800 54px sans-serif';ctx.fillText(name,600,735);
+ ctx.font='500 31px sans-serif';ctx.fillStyle='#76584b';ctx.fillText('সাফল্যের সাথে পার করেছেন',600,800);
+
+ ctx.fillStyle='#d95839';ctx.font='950 145px sans-serif';ctx.fillText(bn(n),600,970);
+ ctx.fillStyle='#3d281f';ctx.font='800 42px sans-serif';ctx.fillText('টি শুক্রবার! 😄',600,1035);
+
+ ctx.fillStyle='#fff';roundRect(ctx,190,1110,820,120,30);
+ ctx.fillStyle='#8a5c48';ctx.font='600 27px sans-serif';
+ ctx.fillText('এই সার্টিফিকেটটি শুধুমাত্র মজা ও বিনোদনের জন্য।',600,1180);
+
+ const d=new Date().toLocaleDateString('bn-BD',{year:'numeric',month:'long',day:'numeric'});
+ ctx.fillStyle='#806356';ctx.font='500 25px sans-serif';ctx.fillText('তারিখ: '+d,600,1300);
+ ctx.fillStyle='#633a29';ctx.font='800 27px sans-serif';ctx.fillText('Developer: Imran',600,1370);
+}
+
+$('make').onclick=()=>{
+ const name=$('name').value.trim(), dob=$('dob').value;
+ if(!name){alert('তোমার নাম লিখো 🙂');return}
+ if(!dob){alert('জন্মতারিখ নির্বাচন করো 🙂');return}
+ const n=fridayCount(dob);if(n===null){alert('সঠিক জন্মতারিখ দাও।');return}
+ $('count').textContent=bn(n);
+ $('details').textContent=`${name}, জন্মতারিখ থেকে আজ পর্যন্ত মোট ${bn(n)}টি শুক্রবার এসেছে।`;
+ $('result').style.display='block';$('certWrap').style.display='block';
+ drawCert(name,n);$('certWrap').scrollIntoView({behavior:'smooth'});
+};
+function blob(){return new Promise(r=>$('cert').toBlob(r,'image/png',1))}
+$('download').onclick=async()=>{
+ const b=await blob(),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='amar-shukrobar-certificate.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+};
+$('share').onclick=async()=>{
+ const b=await blob(),f=new File([b],'amar-shukrobar-certificate.png',{type:'image/png'});
+ if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({title:'আমার শুক্রবার সার্টিফিকেট',files:[f]})}catch(e){}}
+ else{alert('তোমার ব্রাউজারে সরাসরি image share support নেই। আগে Save করে তারপর share করো।')}
+};
+</script>
+</body>
+</html>
