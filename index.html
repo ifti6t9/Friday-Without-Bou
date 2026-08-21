@@ -1,1024 +1,395 @@
-<!DOCTYPE html>
+<!doctype html>
+<html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ইমরান হোসেন - প্রফেশনাল ওয়েব ডেভেলপার ও গ্রাফিক্স ডিজাইনার</title>
-    
-    <!-- Google Fonts: Hind Siliguri for Bengali -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- FontAwesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Tailwind CSS (CDN for Single File structure) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Hind Siliguri"', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#3a86ff',
-                        secondary: '#ff006e',
-                        dark: '#0f172a',
-                        darker: '#020617',
-                        light: '#f8fafc',
-                        glass: 'rgba(255, 255, 255, 0.1)',
-                        glassDark: 'rgba(15, 23, 42, 0.7)',
-                    },
-                    animation: {
-                        'blob': 'blob 7s infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#121824">
+<title>বউ ছাড়া কত শুক্রবার?</title>
 
-    <!-- Custom CSS for specific effects not easily done with Tailwind utilities -->
-    <style>
-        /* Base & Scrollbar */
-        body {
-            font-family: 'Hind Siliguri', sans-serif;
-            background-color: #0f172a; /* Default dark background */
-            color: #f8fafc;
-            overflow-x: hidden;
-        }
-        
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #020617;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3a86ff;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2563eb;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        /* Glassmorphism Classes */
-        .glass-panel {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-        }
-        
-        .glass-nav {
-            background: rgba(2, 6, 23, 0.8);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
+<style>
+*{box-sizing:border-box}
+body{
+    margin:0;
+    min-height:100vh;
+    font-family: 'Hind Siliguri', system-ui, -apple-system, sans-serif;
+    background: radial-gradient(circle at top, #1a233a 0%, #0b0f19 100%);
+    color:#f3f4f6;
+    padding:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.wrap{width:100%;max-width:560px;margin:auto}
+.card{
+    background:rgba(20, 27, 45, 0.9);
+    border:1px solid rgba(245, 158, 11, 0.25);
+    border-radius:32px;
+    padding:34px;
+    box-shadow:0 30px 70px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(20px);
+}
+.hero{text-align:center}
+.hero .em{
+    font-size:62px;
+    margin-bottom:12px;
+    display:inline-block;
+    animation: floatAnim 3s ease-in-out infinite;
+    filter: drop-shadow(0 12px 20px rgba(245, 158, 11, 0.4));
+}
+@keyframes floatAnim {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
 
-        /* Text Gradients */
-        .text-gradient {
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-image: linear-gradient(to right, #3a86ff, #8338ec);
-        }
-        
-        .text-gradient-alt {
-            background-clip: text;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-image: linear-gradient(to right, #ff006e, #ffbe0b);
-        }
+/* Highly highlighted and bold main title */
+h1{
+    font-size: 44px;
+    margin: 10px 0;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 4px 25px rgba(245, 158, 11, 0.5);
+    letter-spacing: -0.5px;
+}
+.muted{color:#9ca3af;line-height:1.6;font-size:15px;font-weight:400;}
 
-        /* Project Card Image Scroll Effect */
-        .project-image-container {
-            height: 250px;
-            overflow: hidden;
-            position: relative;
-            border-radius: 0.5rem 0.5rem 0 0;
-        }
-        
-        .project-image {
-            width: 100%;
-            height: auto;
-            position: absolute;
-            top: 0;
-            left: 0;
-            transition: top 3s ease-in-out;
-        }
-        
-        .project-card:hover .project-image {
-            /* This will be calculated dynamically based on image height in JS, 
-               but fallback here for standard sizes */
-            top: calc(-100% + 250px); 
-        }
+label{display:block;font-weight:600;margin:22px 0 8px;color:#f3f4f6;font-size:15px;letter-spacing:0.3px;}
+input[type="text"], input[type="date"]{
+    width:100%;
+    padding:15px 18px;
+    border:1.5px solid rgba(255, 255, 255, 0.12);
+    border-radius:18px;
+    font-size:16px;
+    background:rgba(11, 15, 25, 0.85);
+    font-family: 'Hind Siliguri', sans-serif;
+    color:#ffffff;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    outline:none;
+}
+input[type="text"]:focus, input[type="date"]:focus{
+    border-color:#f59e0b;
+    box-shadow:0 0 0 4px rgba(245, 158, 11, 0.22);
+    background:rgba(11, 15, 25, 1);
+}
 
-        /* Scroll Reveal Animation Classes */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .reveal-left {
-            opacity: 0;
-            transform: translateX(-30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-        .reveal-left.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
+input[type="file"]{
+    width:100%;
+    padding:12px;
+    border:1.5px dashed rgba(245, 158, 11, 0.35);
+    border-radius:18px;
+    font-size:14px;
+    background:rgba(11, 15, 25, 0.5);
+    cursor:pointer;
+    font-family: 'Hind Siliguri', sans-serif;
+    color:#cbd5e1;
+    transition: all 0.25s ease;
+}
+input[type="file"]:hover{
+    border-color:#f59e0b;
+    background:rgba(245, 158, 11, 0.08);
+}
 
-        /* Typing Effect Cursor */
-        .typing-cursor::after {
-            content: '|';
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
+button,.fb{
+    width:100%;
+    border:0;
+    border-radius:18px;
+    padding:16px;
+    margin-top:20px;
+    font-weight:700;
+    font-size:16px;
+    cursor:pointer;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    font-family: 'Hind Siliguri', sans-serif;
+    transition: all 0.3s ease;
+}
+.primary{
+    background:linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color:#0b0f19;
+    box-shadow:0 12px 28px rgba(245, 158, 11, 0.4);
+}
+.primary:hover{
+    transform: translateY(-2px);
+    box-shadow:0 16px 35px rgba(245, 158, 11, 0.55);
+}
 
-        /* Modern Gradient Button */
-        .btn-gradient {
-            background: linear-gradient(45deg, #3a86ff, #8338ec);
-            background-size: 200% 200%;
-            animation: gradientMove 3s ease infinite;
-            transition: all 0.3s ease;
-        }
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(58, 134, 255, 0.4);
-        }
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+.secondary{
+    background:rgba(255, 255, 255, 0.08);
+    color:#f3f4f6;
+    border:1px solid rgba(255, 255, 255, 0.15);
+}
+.secondary:hover{
+    background:rgba(255, 255, 255, 0.16);
+    transform: translateY(-1px);
+}
 
-        /* Loader */
-        #loader {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #020617;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-        .spinner {
-            width: 50px; height: 50px;
-            border: 3px solid rgba(58, 134, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: #3a86ff;
-            animation: spin 1s ease-in-out infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        
-        /* Interactive Background Elements */
-        .bg-shape {
-            position: absolute;
-            filter: blur(60px);
-            opacity: 0.5;
-            z-index: -1;
-            border-radius: 50%;
-        }
-    </style>
+.fb{
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+    color:#fff;
+    box-shadow:0 12px 28px rgba(37, 99, 235, 0.4);
+}
+.fb:hover{
+    transform: translateY(-2px);
+    box-shadow:0 16px 35px rgba(37, 99, 235, 0.55);
+}
+
+.result{
+    display:none;
+    text-align:center;
+    background:linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(20, 27, 45, 0.95) 100%);
+    border:1px solid rgba(245, 158, 11, 0.35);
+    border-radius:24px;
+    padding:26px;
+    margin-top:26px;
+    animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.num{font-size:58px;font-weight:800;color:#f59e0b;line-height:1.2;text-shadow:0 6px 18px rgba(245,158,11,0.35);}
+.certWrap{display:none;margin-top:28px}
+.certWrap h2{text-align:center;color:#ffffff;font-size:23px;margin-bottom:16px;}
+canvas{width:100%;height:auto;border-radius:22px;box-shadow:0 20px 45px rgba(0,0,0,0.6);background:#fff}
+
+.dev{margin-top:28px;border-top:1px solid rgba(255, 255, 255, 0.12);padding-top:26px;text-align:center}
+.dev h3{margin:0 0 6px;font-size:18px;color:#ffffff;}
+.dev p{margin:0 0 14px;color:#9ca3af;font-size:14px}
+.note{text-align:center;font-size:13.5px;color:#9ca3af;margin-top:20px;font-weight:500;}
+
+/* Custom Professional Modal Styles */
+.modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.75); backdrop-filter: blur(8px); display:none; align-items:center; justify-content:center; z-index:1000; padding: 20px;}
+.modal-box { background:#141b2d; border: 1.5px solid rgba(245, 158, 11, 0.4); padding:34px; border-radius:26px; max-width:100%; width:380px; text-align:center; box-shadow:0 25px 60px rgba(0,0,0,0.7); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.modal-msg { font-size: 16.5px; color: #f3f4f6; margin-bottom: 24px; font-weight: 500; line-height: 1.6;}
+.modal-btn { background:linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color:#0b0f19; border:none; padding:14px 20px; border-radius:16px; cursor:pointer; font-weight:700; width: 100%; font-family:'Hind Siliguri', sans-serif; font-size:15.5px; box-shadow:0 8px 22px rgba(245,158,11,0.35); transition: transform 0.2s;}
+.modal-btn:hover { transform: translateY(-1px); }
+</style>
 </head>
-<body class="antialiased relative bg-dark text-light">
+<body>
 
-    <!-- Preloader -->
-    <div id="loader">
-        <div class="spinner"></div>
+<div class="wrap">
+ <div class="card">
+  <div class="hero">
+   <div class="em">💍👰‍♀</div>
+   <h1>বউ ছাড়া কত শুক্রবার?</h1>
+   <div class="muted">বউ আসার আগের কিংবা বর্তমান স্বাধীন জীবনের হিসাব করুন এক ক্লিকে এবং প্রিমিয়াম রয়েল সার্টিফিকেট তৈরি করুন!</div>
+  </div>
+
+  <label>👤 আপনার নাম</label>
+  <input id="name" type="text" maxlength="35" placeholder="যেমন: ইমরান হোসেন">
+
+  <label>📅 জন্মতারিখ</label>
+  <input id="dob" type="date">
+
+  <label>📸 আপনার ছবি (ঐচ্ছিক)</label>
+  <input id="photo" type="file" accept="image/*">
+
+  <button class="primary" id="make">
+   <span>⚡ হিসাব করে সার্টিফিকেট বানান</span>
+  </button>
+
+  <div class="result" id="result">
+   <div class="num" id="count">০</div>
+   <b style="font-size: 19px; color: #f59e0b;">টি শুক্রবার পরম স্বাধীনতায় পার হয়েছে! 🚀😎</b>
+   <div class="muted" id="details" style="margin-top: 10px;"></div>
+  </div>
+
+  <div class="certWrap" id="certWrap">
+   <h2>🏆 আপনার প্রিমিয়াম রয়েল সার্টিফিকেট</h2>
+   <canvas id="cert" width="1200" height="1500"></canvas>
+   <button class="secondary" id="download"><span>📥 সার্টিফিকেট ডাউনলোড করুন (PNG)</span></button>
+   <button class="secondary" id="share"><span>📤 সার্টিফিকেট শেয়ার করুন</span></button>
+  </div>
+
+  <div class="dev">
+   <h3>👨‍💻 ডেভেলপার ইনফো</h3>
+   <p>ওয়েবসাইট ডেভেলপার — ইমরান</p>
+   <a class="fb" href="https://www.facebook.com/share/1BgxkcRz3S/" target="_blank" rel="noopener">
+    <span>🌐 ফেসবুক প্রোফাইলে যোগাযোগ করুন</span>
+   </a>
+  </div>
+  <div class="note">✨ ১০০% বিনোদন এবং মজার উদ্দেশ্যে তৈরি করা হয়েছে ✨</div>
+ </div>
+</div>
+
+<!-- Custom Message Modal -->
+<div class="modal-overlay" id="modal">
+    <div class="modal-box">
+        <div class="modal-msg" id="modalText"></div>
+        <button class="modal-btn" onclick="document.getElementById('modal').style.display='none'">বুঝেছি 👍</button>
     </div>
+</div>
 
-    <!-- Animated Background Shapes (Parallax) -->
-    <div class="fixed inset-0 overflow-hidden pointer-events-none z-[-1]">
-        <div class="bg-shape bg-primary/30 w-96 h-96 top-[-10%] left-[-10%] animate-blob"></div>
-        <div class="bg-shape bg-purple-600/20 w-80 h-80 top-[40%] right-[-5%] animate-blob" style="animation-delay: 2s;"></div>
-        <div class="bg-shape bg-secondary/20 w-[500px] h-[500px] bottom-[-20%] left-[20%] animate-blob" style="animation-delay: 4s;"></div>
-    </div>
+<script>
+const $=id=>document.getElementById(id);
+$('dob').max=new Date().toISOString().split('T')[0];
+let imageObj=null;
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo / Brand -->
-                <div class="flex-shrink-0 flex items-center">
-                    <a href="#" class="group flex items-center gap-1.5">
-                        <span class="text-primary font-mono text-2xl font-bold tracking-tighter opacity-80 group-hover:opacity-100 transition-opacity">&lt;</span>
-                        <span id="nav-brand-name" class="text-2xl font-bold text-white tracking-wide group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-primary group-hover:to-secondary transition-all duration-300">ইমরান</span>
-                        <span class="text-primary font-mono text-2xl font-bold tracking-tighter opacity-80 group-hover:opacity-100 transition-opacity">/&gt;</span>
-                    </a>
-                </div>
+function showMsg(msg) {
+    $('modalText').textContent = msg;
+    $('modal').style.display = 'flex';
+}
 
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#home" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium">হোম</a>
-                    <a href="#about" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium">সম্পর্কে</a>
-                    <a href="#skills" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium">স্কিলস</a>
-                    <a href="#portfolio" class="text-gray-300 hover:text-primary transition-colors text-sm font-medium">প্রজেক্টসমূহ</a>
-                    <a href="#contact" class="btn-gradient text-white px-6 py-2 rounded-full text-sm font-medium shadow-lg hover:shadow-primary/50 transition-all">যোগাযোগ করুন</a>
-                </div>
+$('photo').addEventListener('change',e=>{
+ const f=e.target.files[0]; if(!f){imageObj=null;return}
+ const r=new FileReader(); r.onload=()=>{const im=new Image();im.onload=()=>imageObj=im;im.src=r.result};r.readAsDataURL(f);
+});
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
-                        <i class="fa-solid fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
+function fridayCount(s){
+ const start=new Date(s+'T00:00:00'), end=new Date();
+ if(isNaN(start)||start>end)return null;
+ const first=new Date(start); first.setDate(first.getDate()+((5-first.getDay()+7)%7));
+ if(first>end)return 0;
+ return Math.floor((end-first)/(7*86400000))+1;
+}
+function bn(n){return Number(n).toLocaleString('bn-BD')}
 
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden glass-panel border-t border-gray-800 absolute w-full">
-            <div class="px-4 pt-2 pb-6 space-y-2 text-center flex flex-col">
-                <a href="#home" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-primary hover:bg-gray-800/50">হোম</a>
-                <a href="#about" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-primary hover:bg-gray-800/50">সম্পর্কে</a>
-                <a href="#skills" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-primary hover:bg-gray-800/50">স্কিলস</a>
-                <a href="#portfolio" class="mobile-link block px-3 py-3 rounded-md text-base font-medium text-gray-300 hover:text-primary hover:bg-gray-800/50">প্রজেক্টসমূহ</a>
-                <a href="#contact" class="mobile-link block px-3 py-3 mt-4 mx-4 rounded-full text-base font-medium text-white btn-gradient">যোগাযোগ করুন</a>
-            </div>
-        </div>
-    </nav>
+function roundRect(ctx,x,y,w,h,r){
+ ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();
+}
+function coverImage(ctx,img,x,y,w,h){
+ const ir=img.width/img.height, br=w/h;let sx=0,sy=0,sw=img.width,sh=img.height;
+ if(ir>br){sw=img.height*br;sx=(img.width-sw)/2}else{sh=img.width/br;sy=(img.height-sh)/2}
+ ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h);
+}
 
-    <!-- Hero Section -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                
-                <!-- Text Content -->
-                <div class="order-2 lg:order-1 text-center lg:text-left reveal-left">
-                    <div class="inline-block px-4 py-1.5 rounded-full glass-panel border border-primary/30 text-primary text-sm font-medium mb-6">
-                        <i class="fa-solid fa-hand-wave mr-2"></i> স্বাগতম আমার পোর্টফোলিওতে
-                    </div>
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-                        হ্যালো, আমি <br>
-                        <span id="hero-name" class="text-gradient font-bold">ইমরান হোসেন</span>
-                    </h1>
-                    <h2 class="text-2xl sm:text-3xl text-gray-300 font-medium mb-6 h-10">
-                        আমি একজন <span id="typed-text" class="text-primary typing-cursor font-semibold"></span>
-                    </h2>
-                    <p id="hero-description" class="text-gray-400 text-lg mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-                        আমি আধুনিক, রেসপন্সিভ এবং ইউজার-ফ্রেন্ডলি ওয়েবসাইট তৈরি করি। সুন্দর ডিজাইন এবং নিখুঁত কোডিংয়ের মাধ্যমে আপনার আইডিয়াকে বাস্তবে রূপ দেওয়াই আমার লক্ষ্য।
-                    </p>
-                    
-                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                        <a href="#portfolio" class="btn-gradient text-white px-8 py-3 rounded-full font-medium shadow-lg hover:shadow-primary/40 transition-all flex items-center justify-center gap-2 group">
-                            আমার কাজ দেখুন <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
-                        </a>
-                        <a href="#contact" class="glass-panel text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800/50 border border-gray-700 transition-all flex items-center justify-center gap-2">
-                            যোগাযোগ করুন
-                        </a>
-                    </div>
+function drawCert(name,n){
+ const c=$('cert'),ctx=c.getContext('2d');
+ 
+ // Rich Royal Background Gradient
+ const g=ctx.createLinearGradient(0,0,1200,1500);
+ g.addColorStop(0,'#fffbf2');
+ g.addColorStop(0.5,'#fff4e0');
+ g.addColorStop(1,'#fae6cc');
+ ctx.fillStyle=g;
+ ctx.fillRect(0,0,1200,1500);
 
-                    <!-- Social Links -->
-                    <div class="mt-10 flex gap-4 justify-center lg:justify-start" id="hero-social-links">
-                        <!-- Injected via JS -->
-                    </div>
-                </div>
+ // Luxury Gold Border Design
+ ctx.strokeStyle='#b8860b';
+ ctx.lineWidth=14;
+ ctx.strokeRect(35,35,1130,1430);
 
-                <!-- Image/Visual Content -->
-                <div class="order-1 lg:order-2 flex justify-center relative reveal">
-                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
-                        <!-- Decorative background behind image -->
-                        <div class="absolute inset-0 bg-gradient-to-tr from-primary to-purple-600 rounded-full blur-2xl opacity-40 animate-pulse-slow"></div>
-                        <div class="absolute inset-4 border-2 border-primary/50 rounded-full animate-[spin_10s_linear_infinite]"></div>
-                        <div class="absolute inset-8 border border-dashed border-secondary/50 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
-                        
-                        <!-- Profile Image -->
-                        <div class="absolute inset-2 rounded-full overflow-hidden glass-panel border-4 border-gray-800 z-10 p-2 group">
-                            <img id="hero-image" src="https://placehold.co/600x600/1e293b/3a86ff?text=IH" alt="ইমরান হোসেন" class="w-full h-full object-cover rounded-full group-hover:scale-110 transition-transform duration-700">
-                        </div>
-                        
-                        <!-- Floating badges -->
-                        <div class="absolute -top-4 -right-4 glass-panel px-4 py-2 rounded-2xl border border-white/10 flex items-center gap-2 animate-float z-20">
-                            <i class="fa-brands fa-html5 text-orange-500 text-xl"></i>
-                            <span class="text-sm font-medium">Development</span>
-                        </div>
-                        <div class="absolute -bottom-4 -left-4 glass-panel px-4 py-2 rounded-2xl border border-white/10 flex items-center gap-2 animate-float z-20" style="animation-delay: 1.5s;">
-                            <i class="fa-solid fa-pen-nib text-secondary text-xl"></i>
-                            <span class="text-sm font-medium">Design</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Scroll Indicator -->
-        <a href="#about" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-gray-400 hover:text-white transition-colors animate-bounce flex flex-col items-center gap-2 z-10">
-            <span class="text-xs uppercase tracking-widest">নিচে স্ক্রল করুন</span>
-            <i class="fa-solid fa-chevron-down"></i>
-        </a>
-    </section>
+ ctx.strokeStyle='#d4af37';
+ ctx.lineWidth=4;
+ ctx.strokeRect(58,58,1084,1384);
 
-    <!-- About Section -->
-    <section id="about" class="py-24 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">আমার <span class="text-gradient">সম্পর্কে</span></h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary to-purple-600 mx-auto rounded-full"></div>
-            </div>
+ // Inner corner decorations
+ ctx.fillStyle='#b8860b';
+ ctx.fillRect(55, 55, 30, 30);
+ ctx.fillRect(1115, 55, 30, 30);
+ ctx.fillRect(55, 1415, 30, 30);
+ ctx.fillRect(1115, 1415, 30, 30);
 
-            <div class="glass-panel rounded-3xl p-8 md:p-12 border border-white/5 reveal">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-10 items-center">
-                    <div class="md:col-span-5 flex justify-center">
-                        <div class="relative w-full max-w-sm rounded-2xl overflow-hidden group">
-                            <div class="absolute inset-0 bg-primary/20 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
-                            <img id="about-image" src="https://placehold.co/800x1000/1e293b/3a86ff?text=Imran" alt="About Imran" class="w-full h-auto object-cover rounded-2xl transform group-hover:scale-105 transition-transform duration-700">
-                        </div>
-                    </div>
-                    
-                    <div class="md:col-span-7">
-                        <h3 class="text-2xl font-semibold mb-4 text-white">আমি ইমরান হোসেন, একজন <span class="text-primary">ওয়েব ডেভেলপার</span></h3>
-                        <p id="about-text-1" class="text-gray-300 mb-6 leading-relaxed text-lg">
-                            আমি গত কয়েক বছর ধরে ওয়েব ডেভেলপমেন্ট এবং গ্রাফিক্স ডিজাইন নিয়ে কাজ করছি। সুন্দর ইউজার ইন্টারফেস তৈরি করা এবং সেটাকে কার্যকরী ওয়েবসাইটে রূপান্তর করা আমার প্যাশন।
-                        </p>
-                        <p id="about-text-2" class="text-gray-400 mb-8 leading-relaxed">
-                            আমার কাজের মূল লক্ষ্য হলো ক্লায়েন্টের চাহিদা অনুযায়ী আধুনিক, দ্রুত গতির এবং সিকিউর ওয়েবসাইট তৈরি করা। আমি সবসময় নতুন প্রযুক্তি শিখতে এবং নিজেকে আপডেট রাখতে ভালোবাসি।
-                        </p>
-                        
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8" id="personal-info-grid">
-                            <!-- Injected via JS -->
-                        </div>
-                        
-                        <a href="#contact" class="btn-gradient inline-block text-white px-8 py-3 rounded-full font-medium shadow-lg hover:shadow-primary/40 transition-all">
-                            হায়ার করুন
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+ // Header Badge / Crest
+ ctx.textAlign='center';
+ ctx.fillStyle='#78350f';
+ ctx.font='700 32px "Hind Siliguri", sans-serif';
+ ctx.fillText('✨ OFFICIAL ROYAL DECREE OF FREEDOM ✨',600,140);
 
-    <!-- Skills Section -->
-    <section id="skills" class="py-24 relative z-10 bg-darker/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">আমার <span class="text-gradient">দক্ষতা</span></h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary to-purple-600 mx-auto rounded-full"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">যেসব প্রযুক্তি এবং টুলে আমি পারদর্শী</p>
-            </div>
+ ctx.font='700 68px "Hind Siliguri", sans-serif';
+ ctx.fillStyle='#581c87';
+ ctx.fillText('বিশেষ রাজকীয় সনদপত্র',600,225);
+ 
+ ctx.font='600 32px "Hind Siliguri", sans-serif';
+ ctx.fillStyle='#9a3412';
+ ctx.fillText('বউ ছাড়া কত শুক্রবার পার হয়েছে?',600,285);
 
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6" id="skills-container">
-                <!-- Injected via JS -->
-            </div>
-            
-            <!-- Experience / Stats -->
-            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8" id="stats-container">
-                <!-- Injected via JS -->
-            </div>
-        </div>
-    </section>
+ // Avatar Frame with Gold Accent
+ ctx.save();
+ ctx.beginPath();
+ ctx.arc(600,480,165,0,Math.PI*2);
+ ctx.clip();
+ if(imageObj) {
+     coverImage(ctx,imageObj,435,315,330,330);
+ } else {
+     ctx.fillStyle='#fde68a';
+     ctx.fillRect(435,315,330,330);
+     ctx.font='110px sans-serif';
+     ctx.fillStyle='#b45309';
+     ctx.fillText('🤵',600,525);
+ }
+ ctx.restore();
+ 
+ // Outer ring for photo
+ ctx.strokeStyle='#b8860b';
+ ctx.lineWidth=10;
+ ctx.beginPath();
+ ctx.arc(600,480,170,0,Math.PI*2);
+ ctx.stroke();
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="py-24 relative z-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">আমার <span class="text-gradient">প্রজেক্টসমূহ</span></h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary to-purple-600 mx-auto rounded-full"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">সম্প্রতি সম্পন্ন করা কিছু আধুনিক এবং প্রিমিয়াম ওয়েবসাইটের নমুনা</p>
-            </div>
+ // Recipient Name
+ ctx.fillStyle='#1e293b';
+ ctx.font='700 56px "Hind Siliguri", sans-serif';
+ ctx.fillText(name,600,735);
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="projects-container">
-                <!-- Injected via JS -->
-            </div>
-            
-            <div class="text-center mt-12 reveal">
-                <a id="github-link" href="#" target="_blank" class="glass-panel text-white px-8 py-3 rounded-full font-medium hover:bg-gray-800/80 border border-gray-700 transition-all inline-flex items-center gap-2 group">
-                    <i class="fa-brands fa-github text-xl group-hover:text-primary transition-colors"></i> আরও প্রজেক্ট দেখুন গিটহাবে
-                </a>
-            </div>
-        </div>
-    </section>
+ ctx.font='500 30px "Hind Siliguri", sans-serif';
+ ctx.fillStyle='#475569';
+ ctx.fillText('অত্যন্ত সাহসিকতা ও সফলতার সাথে সম্পূর্ণ স্বাধীনতায়',600,800);
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-24 relative z-10 bg-darker/50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16 reveal">
-                <h2 class="text-3xl md:text-4xl font-bold mb-4">যোগাযোগ <span class="text-gradient">করুন</span></h2>
-                <div class="w-24 h-1 bg-gradient-to-r from-primary to-purple-600 mx-auto rounded-full"></div>
-                <p class="text-gray-400 mt-4 max-w-2xl mx-auto">যেকোনো প্রোজেক্ট বা কাজের ব্যাপারে আলোচনা করতে মেসেজ দিন</p>
-            </div>
+ // Big Counter Value
+ ctx.fillStyle='#c2410c';
+ ctx.font='700 140px "Hind Siliguri", sans-serif';
+ ctx.fillText(bn(n),600,970);
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                <!-- Contact Info -->
-                <div class="lg:col-span-5 space-y-6 reveal-left">
-                    <div class="glass-panel p-8 rounded-2xl border border-white/5 h-full">
-                        <h3 class="text-2xl font-semibold mb-8 text-white">কন্টাক্ট ইনফরমেশন</h3>
-                        
-                        <div class="space-y-6" id="contact-info-list">
-                            <!-- Injected via JS -->
-                        </div>
+ ctx.fillStyle='#1e293b';
+ ctx.font='700 42px "Hind Siliguri", sans-serif';
+ ctx.fillText('টি শুক্রবার অতিবাহিত করেছেন! 👑🚀',600,1040);
 
-                        <div class="mt-10">
-                            <h4 class="text-lg font-medium mb-4 text-gray-300">সোশ্যাল মিডিয়া</h4>
-                            <div class="flex gap-4" id="contact-social-links">
-                                <!-- Injected via JS -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
+ // Disclaimer Box
+ ctx.fillStyle='#ffffff';
+ roundRect(ctx,185,1100,830,110,25);
+ ctx.strokeStyle='#fcd34d';
+ ctx.lineWidth=2;
+ ctx.beginPath();ctx.roundRect(185,1100,830,110,25);ctx.stroke();
 
-                <!-- Contact Form -->
-                <div class="lg:col-span-7 reveal">
-                    <form id="contact-form" class="glass-panel p-8 md:p-10 rounded-2xl border border-white/5">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
-                            <div>
-                                <label class="block text-gray-400 text-sm font-medium mb-2" for="name">আপনার নাম</label>
-                                <input type="text" id="name" required class="w-full bg-gray-900/50 border border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-white outline-none transition-colors" placeholder="যেমন: ইমরান হোসেন">
-                            </div>
-                            <div>
-                                <label class="block text-gray-400 text-sm font-medium mb-2" for="phone">ফোন নম্বর</label>
-                                <input type="tel" id="phone" required class="w-full bg-gray-900/50 border border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-white outline-none transition-colors" placeholder="০১৫২২১৩৮৬৭৭">
-                            </div>
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label class="block text-gray-400 text-sm font-medium mb-2" for="email">ইমেইল অ্যাড্রেস</label>
-                            <input type="email" id="email" required class="w-full bg-gray-900/50 border border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-white outline-none transition-colors" placeholder="heyimran360@gmail.com">
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label class="block text-gray-400 text-sm font-medium mb-2" for="message">আপনার মেসেজ</label>
-                            <textarea id="message" required rows="5" class="w-full bg-gray-900/50 border border-gray-700 focus:border-primary focus:ring-1 focus:ring-primary rounded-lg px-4 py-3 text-white outline-none transition-colors resize-none" placeholder="আপনার প্রোজেক্ট সম্পর্কে বিস্তারিত লিখুন..."></textarea>
-                        </div>
-                        
-                        <button type="submit" id="submit-btn" class="w-full btn-gradient text-white font-bold py-4 px-6 rounded-lg shadow-lg hover:shadow-primary/40 transition-all flex justify-center items-center gap-2">
-                            <span>মেসেজ পাঠান</span> <i class="fa-solid fa-paper-plane"></i>
-                        </button>
-                        
-                        <!-- Form Status Message -->
-                        <div id="form-status" class="mt-4 text-center hidden p-3 rounded-lg font-medium"></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+ ctx.fillStyle='#78350f';
+ ctx.font='600 26px "Hind Siliguri", sans-serif';
+ ctx.fillText('এই সার্টিফিকেটটি খাঁটি আনন্দ ও বিনোদনের উদ্দেশ্যে প্রদান করা হলো।',600,1168);
 
-    <!-- Google Map Section -->
-    <section class="relative h-[400px] w-full z-10 border-t border-gray-800 reveal">
-        <!-- Grayscale filter applied via CSS class inline to match dark theme -->
-        <iframe id="google-map" class="w-full h-full" style="filter: invert(90%) hue-rotate(180deg) contrast(100%); border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <!-- Overlay to prevent scroll trapping -->
-        <div class="absolute inset-0 bg-transparent pointer-events-none"></div>
-    </section>
+ // Footer: Date & Signature
+ const d=new Date().toLocaleDateString('bn-BD',{year:'numeric',month:'long',day:'numeric'});
+ ctx.fillStyle='#64748b';
+ ctx.font='500 24px "Hind Siliguri", sans-serif';
+ ctx.fillText('জারির তারিখ: '+d,600,1310);
 
-    <!-- Footer -->
-    <footer class="bg-darker py-8 border-t border-gray-800 z-10 relative">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <p class="text-gray-400 text-sm mb-4 md:mb-0">
-                &copy; <span id="current-year"></span> <span id="footer-name" class="text-white font-semibold">ইমরান</span>. সর্বস্বত্ব সংরক্ষিত।
-            </p>
-            <div class="flex items-center gap-2 text-sm text-gray-500">
-                ডিজাইন ও ডেভেলপমেন্ট: <span class="text-primary font-medium">ইমরান হোসেন</span>
-            </div>
-        </div>
-    </footer>
+ ctx.fillStyle='#1e293b';
+ ctx.font='700 26px "Hind Siliguri", sans-serif';
+ ctx.fillText('Developer: Imran (Royal Bureau)',600,1380);
+}
 
-    <!-- Back to top button -->
-    <button id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg shadow-primary/30 opacity-0 invisible transition-all duration-300 z-50 hover:-translate-y-2">
-        <i class="fa-solid fa-arrow-up"></i>
-    </button>
+$('make').onclick=()=>{
+ const name=$('name').value.trim(), dob=$('dob').value;
+ if(!name){showMsg('দয়া করে আপনার নাম লিখুন 🙂');return}
+ if(!dob){showMsg('দয়া করে আপনার জন্মতারিখ নির্বাচন করুন 📅');return}
+ const n=fridayCount(dob);if(n===null){showMsg('সঠিক জন্মতারিখ দিন।');return}
+ 
+ document.fonts.ready.then(() => {
+     $('count').textContent=bn(n);
+     $('details').textContent=`${name}, জন্মতারিখ থেকে আজ পর্যন্ত আপনার জীবনে মোট ${bn(n)}টি শুক্রবার এসেছে।`;
+     $('result').style.display='block';$('certWrap').style.display='block';
+     drawCert(name,n);
+     $('certWrap').scrollIntoView({behavior:'smooth'});
+ });
+};
 
-    <!-- JavaScript Section -->
-    <script>
-        // ==========================================
-        // CONFIGURATION & DYNAMIC DATA MANAGEMENT
-        // ==========================================
-        // আপনি শুধুমাত্র এই অবজেক্ট পরিবর্তন করে পুরো ওয়েবসাইট কাস্টমাইজ করতে পারবেন।
-        
-        const config = {
-            // Personal Info
-            name: "ইমরান হোসেন",
-            shortName: "ইমরান",
-            titles: ["ওয়েব ডেভেলপার", "গ্রাফিক্স ডিজাইনার", "UI/UX ডিজাইনার"],
-            phone: "০১৫২২১৩৮৬৭৭",
-            email: "heyimran360@gmail.com",
-            location: "বগুড়া, রাজশাহী, বাংলাদেশ",
-            
-            // Images (URL or Base64, fallback placeholders provided)
-            heroImage: "https://cdni.iconscout.com/illustration/premium/thumb/web-developer-4731233-3928442.png", 
-            aboutImage: "https://cdni.iconscout.com/illustration/premium/thumb/web-development-4731234-3928443.png",
-            
-            // About Section Text
-            aboutText1: "আমি গত কয়েক বছর ধরে ওয়েব ডেভেলপমেন্ট এবং গ্রাফিক্স ডিজাইন নিয়ে কাজ করছি। সুন্দর ইউজার ইন্টারফেস তৈরি করা এবং সেটাকে কার্যকরী ওয়েবসাইটে রূপান্তর করা আমার প্যাশন।",
-            aboutText2: "আমার কাজের মূল লক্ষ্য হলো ক্লায়েন্টের চাহিদা অনুযায়ী আধুনিক, দ্রুত গতির এবং সিকিউর ওয়েবসাইট তৈরি করা। আমি HTML, CSS, JavaScript এবং Tailwind CSS এর মত আধুনিক প্রযুক্তি ব্যবহার করে প্রিমিয়াম কোয়ালিটির কাজ প্রদান করি।",
-            
-            // Social & External Links
-            githubLink: "https://github.com",
-            socialLinks: [
-                { icon: "fa-brands fa-facebook-f", url: "https://facebook.com", color: "hover:bg-blue-600 hover:border-blue-600" },
-                { icon: "fa-brands fa-linkedin-in", url: "https://linkedin.com", color: "hover:bg-blue-700 hover:border-blue-700" },
-                { icon: "fa-brands fa-github", url: "https://github.com", color: "hover:bg-gray-700 hover:border-gray-700" },
-                { icon: "fa-brands fa-twitter", url: "https://twitter.com", color: "hover:bg-sky-500 hover:border-sky-500" }
-            ],
+function blob(){return new Promise(r=>$('cert').toBlob(r,'image/png',1))}
 
-            // Skills (Icon classes are from FontAwesome)
-            skills: [
-                { name: "HTML5", icon: "fa-brands fa-html5 text-orange-500", level: "95%" },
-                { name: "CSS3", icon: "fa-brands fa-css3-alt text-blue-500", level: "90%" },
-                { name: "JavaScript", icon: "fa-brands fa-js text-yellow-400", level: "85%" },
-                { name: "Tailwind CSS", icon: "fa-solid fa-wind text-cyan-400", level: "90%" },
-                { name: "React JS", icon: "fa-brands fa-react text-blue-400", level: "80%" },
-                { name: "UI/UX Design", icon: "fa-solid fa-pen-nib text-pink-500", level: "85%" },
-                { name: "Photoshop", icon: "fa-solid fa-image text-blue-600", level: "88%" },
-                { name: "Illustrator", icon: "fa-solid fa-bezier-curve text-orange-600", level: "85%" },
-                { name: "Responsive Design", icon: "fa-solid fa-mobile-screen text-green-400", level: "95%" },
-                { name: "Git & GitHub", icon: "fa-brands fa-github text-gray-300", level: "80%" }
-            ],
+$('download').onclick=async()=>{
+ const b=await blob(),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='amar-shukrobar-certificate.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+};
 
-            // Stats / Experience
-            stats: [
-                { number: "৩+", text: "বছরের অভিজ্ঞতা", icon: "fa-solid fa-calendar-check" },
-                { number: "৫০+", text: "প্রজেক্ট সম্পন্ন", icon: "fa-solid fa-rocket" },
-                { number: "৩০+", text: "সন্তুষ্ট ক্লায়েন্ট", icon: "fa-solid fa-users" }
-            ],
-
-            // Portfolio Projects
-            projects: [
-                {
-                    title: "ই-কমার্স ওয়েবসাইট",
-                    category: "Web Development",
-                    image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=600&h=1200&fit=crop", 
-                    liveLink: "#",
-                    githubLink: "#"
-                },
-                {
-                    title: "কর্পোরেট পোর্টফোলিও",
-                    category: "Web Design",
-                    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&h=1200&fit=crop",
-                    liveLink: "#",
-                    githubLink: "#"
-                },
-                {
-                    title: "রেস্টুরেন্ট ম্যানেজমেন্ট",
-                    category: "UI/UX Design",
-                    image: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&h=1200&fit=crop",
-                    liveLink: "#",
-                    githubLink: "#"
-                },
-                {
-                    title: "ব্লগিং প্ল্যাটফর্ম",
-                    category: "Web Development",
-                    image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=600&h=1200&fit=crop",
-                    liveLink: "#",
-                    githubLink: "#"
-                },
-                {
-                    title: "গ্রাফিক্স টেমপ্লেট",
-                    category: "Graphics Design",
-                    image: "https://images.unsplash.com/photo-1626785774573-4b799315345d?q=80&w=600&h=1200&fit=crop",
-                    liveLink: "#",
-                    githubLink: "#"
-                },
-                {
-                    title: "ল্যান্ডিং পেজ",
-                    category: "Web Design",
-                    image: "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=600&h=1200&fit=crop",
-                    liveLink: "#",
-                    githubLink: "#"
-                }
-            ],
-
-            // Google Map Embedded URL (src attribute only)
-            googleMapSrc: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115858.69460596395!2d89.30062331526433!3d24.843658253152438!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39fc54e7e81df441%3A0x27133ed921fea73f!2sBogra%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1715000000000!5m2!1sen!2sbd",
-
-            // API Settings for Form Submission
-            formApi: {
-                // To use Telegram: Set to true and provide tokens
-                useTelegram: false, 
-                telegramBotToken: "YOUR_BOT_TOKEN_HERE",
-                telegramChatId: "YOUR_CHAT_ID_HERE",
-                
-                // To use Google Sheet (via Google Apps Script Web App URL)
-                useGoogleSheet: false,
-                googleScriptUrl: "YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE",
-                
-                // Success message
-                successMsg: "ধন্যবাদ! আপনার মেসেজটি সফলভাবে পাঠানো হয়েছে। আমি শীঘ্রই যোগাযোগ করবো।",
-                errorMsg: "দুঃখিত, কোনো একটি সমস্যা হয়েছে। দয়া করে আবার চেষ্টা করুন।"
-            }
-        };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // 1. Inject Basic Info
-            document.title = `${config.name} - প্রফেশনাল পোর্টফোলিও`;
-            document.getElementById('nav-brand-name').textContent = config.shortName;
-            document.getElementById('hero-name').textContent = config.name;
-            document.getElementById('hero-image').src = config.heroImage;
-            document.getElementById('about-image').src = config.aboutImage;
-            document.getElementById('about-text-1').textContent = config.aboutText1;
-            document.getElementById('about-text-2').textContent = config.aboutText2;
-            document.getElementById('github-link').href = config.githubLink;
-            document.getElementById('google-map').src = config.googleMapSrc;
-            document.getElementById('footer-name').textContent = config.shortName;
-            document.getElementById('current-year').textContent = new Date().getFullYear();
-
-            // 2. Setup Typing Effect
-            const typedTextElement = document.getElementById('typed-text');
-            let titleIndex = 0;
-            let charIndex = 0;
-            let isDeleting = false;
-            let typingDelay = 100;
-            let erasingDelay = 50;
-            let newTextDelay = 2000;
-
-            function typeEffect() {
-                const currentTitle = config.titles[titleIndex];
-                
-                if (isDeleting) {
-                    typedTextElement.textContent = currentTitle.substring(0, charIndex - 1);
-                    charIndex--;
-                } else {
-                    typedTextElement.textContent = currentTitle.substring(0, charIndex + 1);
-                    charIndex++;
-                }
-
-                let typeSpeed = isDeleting ? erasingDelay : typingDelay;
-
-                if (!isDeleting && charIndex === currentTitle.length) {
-                    typeSpeed = newTextDelay;
-                    isDeleting = true;
-                } else if (isDeleting && charIndex === 0) {
-                    isDeleting = false;
-                    titleIndex = (titleIndex + 1) % config.titles.length;
-                    typeSpeed = 500;
-                }
-                setTimeout(typeEffect, typeSpeed);
-            }
-            setTimeout(typeEffect, newTextDelay);
-
-            // 3. Inject Social Links
-            const heroSocialContainer = document.getElementById('hero-social-links');
-            const contactSocialContainer = document.getElementById('contact-social-links');
-            let socialHTML = '';
-            
-            config.socialLinks.forEach(link => {
-                const aTag = `<a href="${link.url}" target="_blank" class="w-10 h-10 rounded-full glass-panel border border-gray-700 flex items-center justify-center text-gray-300 hover:text-white transition-all duration-300 ${link.color}">
-                                <i class="${link.icon}"></i>
-                              </a>`;
-                socialHTML += aTag;
-            });
-            heroSocialContainer.innerHTML = socialHTML;
-            contactSocialContainer.innerHTML = socialHTML;
-
-            // 4. Inject Personal Info Grid in About
-            const personalInfoGrid = document.getElementById('personal-info-grid');
-            personalInfoGrid.innerHTML = `
-                <div class="flex flex-col">
-                    <span class="text-gray-500 text-sm mb-1">নাম</span>
-                    <span class="text-white font-medium">${config.name}</span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-gray-500 text-sm mb-1">ইমেইল</span>
-                    <span class="text-white font-medium break-all"><a href="mailto:${config.email}" class="hover:text-primary transition-colors">${config.email}</a></span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-gray-500 text-sm mb-1">ফোন</span>
-                    <span class="text-white font-medium"><a href="tel:${config.phone}" class="hover:text-primary transition-colors">${config.phone}</a></span>
-                </div>
-                <div class="flex flex-col">
-                    <span class="text-gray-500 text-sm mb-1">লোকেশন</span>
-                    <span class="text-white font-medium">${config.location}</span>
-                </div>
-            `;
-
-            // 5. Inject Contact Info List
-            const contactInfoList = document.getElementById('contact-info-list');
-            contactInfoList.innerHTML = `
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 text-primary">
-                        <i class="fa-solid fa-location-dot text-xl"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-gray-400 text-sm font-medium">লোকেশন</h4>
-                        <p class="text-white text-lg">${config.location}</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0 text-secondary">
-                        <i class="fa-solid fa-envelope text-xl"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-gray-400 text-sm font-medium">ইমেইল</h4>
-                        <a href="mailto:${config.email}" class="text-white text-lg hover:text-secondary transition-colors break-all">${config.email}</a>
-                    </div>
-                </div>
-                <div class="flex items-start gap-4">
-                    <div class="w-12 h-12 rounded-lg bg-purple-500/10 flex items-center justify-center flex-shrink-0 text-purple-500">
-                        <i class="fa-solid fa-phone text-xl"></i>
-                    </div>
-                    <div>
-                        <h4 class="text-gray-400 text-sm font-medium">ফোন</h4>
-                        <a href="tel:${config.phone}" class="text-white text-lg hover:text-purple-500 transition-colors">${config.phone}</a>
-                    </div>
-                </div>
-            `;
-
-            // 6. Inject Skills
-            const skillsContainer = document.getElementById('skills-container');
-            let skillsHTML = '';
-            config.skills.forEach((skill, index) => {
-                skillsHTML += `
-                    <div class="glass-panel p-6 rounded-2xl border border-white/5 text-center group hover:bg-gray-800/50 transition-all duration-300 reveal" style="transition-delay: ${index * 50}ms">
-                        <i class="${skill.icon} text-4xl mb-4 group-hover:scale-110 transition-transform"></i>
-                        <h3 class="text-white font-medium text-sm md:text-base">${skill.name}</h3>
-                    </div>
-                `;
-            });
-            skillsContainer.innerHTML = skillsHTML;
-
-            // 7. Inject Stats
-            const statsContainer = document.getElementById('stats-container');
-            let statsHTML = '';
-            config.stats.forEach((stat, index) => {
-                statsHTML += `
-                    <div class="glass-panel p-6 rounded-2xl border border-primary/20 flex items-center gap-4 reveal" style="transition-delay: ${index * 100}ms">
-                        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white text-xl shadow-lg shadow-primary/30">
-                            <i class="${stat.icon}"></i>
-                        </div>
-                        <div>
-                            <h3 class="text-3xl font-bold text-white mb-1">${stat.number}</h3>
-                            <p class="text-gray-400 text-sm">${stat.text}</p>
-                        </div>
-                    </div>
-                `;
-            });
-            statsContainer.innerHTML = statsHTML;
-
-            // 8. Inject Projects
-            const projectsContainer = document.getElementById('projects-container');
-            let projectsHTML = '';
-            config.projects.forEach((project, index) => {
-                projectsHTML += `
-                    <div class="project-card glass-panel rounded-2xl border border-white/5 overflow-hidden group reveal" style="transition-delay: ${index * 100}ms">
-                        <div class="project-image-container bg-gray-900 relative">
-                            <img src="${project.image}" alt="${project.title}" class="project-image" onload="calcScroll(this)">
-                            
-                            <!-- Overlay actions -->
-                            <div class="absolute inset-0 bg-darker/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-4 z-20">
-                                <a href="${project.liveLink}" target="_blank" class="w-12 h-12 rounded-full bg-primary text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg tooltip" title="Live Preview">
-                                    <i class="fa-solid fa-eye"></i>
-                                </a>
-                                <a href="${project.githubLink}" target="_blank" class="w-12 h-12 rounded-full glass-panel border border-white/20 text-white flex items-center justify-center hover:scale-110 hover:bg-gray-800 transition-all shadow-lg tooltip" title="GitHub / Details">
-                                    <i class="fa-brands fa-github"></i>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="p-6 relative z-10 bg-gray-900/40 backdrop-blur-sm">
-                            <span class="text-primary text-xs font-semibold tracking-wider uppercase mb-2 block">${project.category}</span>
-                            <h3 class="text-xl font-semibold text-white group-hover:text-primary transition-colors">${project.title}</h3>
-                        </div>
-                    </div>
-                `;
-            });
-            projectsContainer.innerHTML = projectsHTML;
-
-            // Remove loader
-            setTimeout(() => {
-                const loader = document.getElementById('loader');
-                loader.style.opacity = '0';
-                setTimeout(() => { loader.style.display = 'none'; }, 500);
-            }, 1000);
-
-            // Navbar scroll effect
-            const navbar = document.getElementById('navbar');
-            const backToTopBtn = document.getElementById('back-to-top');
-            
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('shadow-lg', 'bg-darker/90');
-                    navbar.classList.remove('glass-nav');
-                    navbar.style.paddingTop = "0";
-                    navbar.style.paddingBottom = "0";
-                } else {
-                    navbar.classList.remove('shadow-lg', 'bg-darker/90');
-                    navbar.classList.add('glass-nav');
-                }
-
-                // Back to top button visibility
-                if (window.scrollY > 500) {
-                    backToTopBtn.classList.remove('opacity-0', 'invisible');
-                    backToTopBtn.classList.add('opacity-100', 'visible');
-                } else {
-                    backToTopBtn.classList.add('opacity-0', 'invisible');
-                    backToTopBtn.classList.remove('opacity-100', 'visible');
-                }
-            });
-
-            // Back to top click
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-            });
-
-            // Mobile menu toggle
-            const mobileBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-
-            mobileBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-                const icon = mobileBtn.querySelector('i');
-                if(mobileMenu.classList.contains('hidden')){
-                    icon.classList.remove('fa-xmark');
-                    icon.classList.add('fa-bars');
-                } else {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-xmark');
-                }
-            });
-
-            // Close mobile menu on link click
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    mobileBtn.querySelector('i').classList.remove('fa-xmark');
-                    mobileBtn.querySelector('i').classList.add('fa-bars');
-                });
-            });
-
-            // Scroll Reveal Animation Observer
-            const revealElements = document.querySelectorAll('.reveal, .reveal-left');
-            
-            const revealOptions = {
-                threshold: 0.1,
-                rootMargin: "0px 0px -50px 0px"
-            };
-
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        // Optional: Stop observing once revealed
-                        // observer.unobserve(entry.target); 
-                    }
-                });
-            }, revealOptions);
-
-            revealElements.forEach(el => {
-                revealObserver.observe(el);
-            });
-
-            // Form Submission Logic
-            const form = document.getElementById('contact-form');
-            const statusDiv = document.getElementById('form-status');
-            const submitBtn = document.getElementById('submit-btn');
-
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                // Get values
-                const name = document.getElementById('name').value;
-                const phone = document.getElementById('phone').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
-
-                // UI Update
-                const originalBtnText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> পাঠানো হচ্ছে...';
-                submitBtn.disabled = true;
-
-                // Formatted Message for Telegram
-                const textMessage = `
-🌟 <b>New Portfolio Message</b> 🌟
-👤 <b>Name:</b> ${name}
-📞 <b>Phone:</b> ${phone}
-📧 <b>Email:</b> ${email}
-💬 <b>Message:</b>
-${message}
-                `;
-
-                try {
-                    let isSuccess = false;
-
-                    // Option 1: Send via Telegram Bot (if configured)
-                    if (config.formApi.useTelegram && config.formApi.telegramBotToken !== "YOUR_BOT_TOKEN_HERE") {
-                        const tgUrl = `https://api.telegram.org/bot${config.formApi.telegramBotToken}/sendMessage`;
-                        const tgResponse = await fetch(tgUrl, {
-                            method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
-                            body: JSON.stringify({
-                                chat_id: config.formApi.telegramChatId,
-                                text: textMessage,
-                                parse_mode: 'HTML'
-                            })
-                        });
-                        if (tgResponse.ok) isSuccess = true;
-                    }
-
-                    // Option 2: Send via Google Sheets (if configured)
-                    if (config.formApi.useGoogleSheet && config.formApi.googleScriptUrl !== "YOUR_GOOGLE_SCRIPT_WEB_APP_URL_HERE") {
-                        const formData = new FormData();
-                        formData.append('name', name);
-                        formData.append('phone', phone);
-                        formData.append('email', email);
-                        formData.append('message', message);
-                        
-                        // Using no-cors mode as most google script web apps require it from browsers
-                        const gsResponse = await fetch(config.formApi.googleScriptUrl, {
-                            method: 'POST',
-                            body: formData,
-                            mode: 'no-cors' 
-                        });
-                        // no-cors doesn't return ok status, we assume success if no error thrown
-                        isSuccess = true; 
-                    }
-
-                    // If neither API is configured, just simulate success for demo purposes
-                    if (!config.formApi.useTelegram && !config.formApi.useGoogleSheet) {
-                        await new Promise(r => setTimeout(r, 1500)); // simulate network delay
-                        console.log("Mock submission:", { name, phone, email, message });
-                        isSuccess = true;
-                    }
-
-                    // Handle Result
-                    if (isSuccess) {
-                        statusDiv.textContent = config.formApi.successMsg;
-                        statusDiv.className = "mt-4 text-center p-3 rounded-lg font-medium bg-green-900/50 text-green-400 border border-green-800 block";
-                        form.reset();
-                    } else {
-                        throw new Error("API configuration might be invalid.");
-                    }
-
-                } catch (error) {
-                    console.error("Form submission error:", error);
-                    statusDiv.textContent = config.formApi.errorMsg;
-                    statusDiv.className = "mt-4 text-center p-3 rounded-lg font-medium bg-red-900/50 text-red-400 border border-red-800 block";
-                } finally {
-                    // Reset button
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                    
-                    // Hide message after 5 seconds
-                    setTimeout(() => {
-                        statusDiv.classList.add('hidden');
-                        statusDiv.classList.remove('block');
-                    }, 5000);
-                }
-            });
-        });
-
-        // Helper function for Project Image scrolling effect
-        // This calculates how far the image should move up on hover based on its actual height
-        window.calcScroll = function(imgElement) {
-            const containerHeight = 250; // Match the CSS height of .project-image-container
-            const intrinsicHeight = imgElement.naturalHeight;
-            const intrinsicWidth = imgElement.naturalWidth;
-            
-            // Calculate displayed height based on container width (assuming 100% width)
-            const displayedWidth = imgElement.parentElement.offsetWidth;
-            const displayedHeight = (intrinsicHeight / intrinsicWidth) * displayedWidth;
-            
-            // Calculate how far to move up
-            if (displayedHeight > containerHeight) {
-                const scrollDistance = displayedHeight - containerHeight;
-                // Add a custom property to be used in CSS hover (or inline style via JS)
-                // Since inline style on hover is tricky without JS event listeners,
-                // we set a CSS variable on the parent container
-                imgElement.parentElement.style.setProperty('--scroll-dist', `-${scrollDistance}px`);
-                
-                // Add dynamic CSS rule for this specific element via a class
-                // Actually, a simpler way is to update the CSS rule dynamically:
-                const sheet = document.createElement('style');
-                // Give parent unique ID
-                const uid = 'img-cont-' + Math.random().toString(36).substr(2, 9);
-                imgElement.parentElement.id = uid;
-                
-                sheet.innerHTML = `
-                    #${uid}:hover .project-image {
-                        top: -${scrollDistance}px;
-                    }
-                `;
-                document.head.appendChild(sheet);
-            }
-        };
-    </script>
+$('share').onclick=async()=>{
+ const b=await blob(),f=new File([b],'amar-shukrobar-certificate.png',{type:'image/png'});
+ if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({title:'আমার শুক্রবার সার্টিফিকেট',files:[f]})}catch(e){}}
+ else{showMsg('আপনার ব্রাউজারে সরাসরি ইমেজ শেয়ার সাপোর্ট করছে না। প্রথমে সেভ করে তারপর শেয়ার করুন।')}
+};
+</script>
 </body>
 </html>
