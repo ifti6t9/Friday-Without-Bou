@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- HTML2Canvas for Prescription Download -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -79,7 +77,7 @@
         
         .rx-leaf-bg {
             position: absolute;
-            color: rgba(34, 197, 94, 0.05); /* very light green */
+            color: rgba(34, 197, 94, 0.05);
             z-index: 0;
             pointer-events: none;
         }
@@ -96,7 +94,7 @@
             বউ ছাড়া কত শুক্রবার?
         </h1>
         <p class="text-slate-400 text-base md:text-lg">
-            তথ্য দিন, ছবি আপলোড করুন আর সাথে সাথেই পেয়ে যান আপনার ফানি ডিজিটাল পোস্টার!
+            তথ্য দিন, ছবি আপলোড করুন আর সাথে সাথেই পেয়ে যান আপনার ফানি পোস্টার ও মেডিকেল প্রেসক্রিপশন!
         </p>
     </header>
 
@@ -167,7 +165,7 @@
                 <!-- ৬. সাবমিট বাটন -->
                 <button type="submit"
                     class="w-full bg-gradient-to-r from-rose-500 via-rose-600 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-extrabold py-4 rounded-xl shadow-lg shadow-rose-500/25 transition transform active:scale-95 flex items-center justify-center gap-2 text-lg">
-                    <i class="fa-solid fa-wand-magic-sparkles"></i> পোস্টার জেনারেট করুন
+                    <i class="fa-solid fa-wand-magic-sparkles"></i> হিসাব ও পোস্টার জেনারেট করুন
                 </button>
             </form>
         </div>
@@ -252,88 +250,21 @@
             </div>
 
             <!-- Dynamic Doctor's Prescription Generator Section -->
-            <div class="space-y-4">
-                <div class="flex items-center justify-center gap-2 text-blue-400 font-bold text-lg mt-6">
+            <div class="glass-panel rounded-3xl p-4 md:p-6 text-center border-2 border-blue-500/40 bg-slate-950/80 space-y-4">
+                <div class="flex items-center justify-center gap-2 text-blue-400 font-bold text-lg">
                     <i class="fa-solid fa-file-prescription text-2xl"></i> আপনার মেডিকেল প্রেসক্রিপশন
                 </div>
-                
-                <!-- Rx Paper Container (For Download) -->
-                <div id="rxPaperContainer" class="rx-paper rounded-2xl p-6 border border-slate-300 mx-auto max-w-xl">
-                    <!-- Background Decorative Leaves -->
-                    <i class="fa-solid fa-leaf rx-leaf-bg text-9xl" style="top: -20px; right: -20px; transform: rotate(135deg);"></i>
-                    <i class="fa-brands fa-envira rx-leaf-bg text-8xl" style="bottom: -10px; left: -10px; transform: rotate(45deg);"></i>
 
-                    <!-- Prescription Header -->
-                    <div class="flex justify-between items-start border-b-[3px] border-slate-800 pb-4 mb-5 relative z-10 flex-nowrap">
-                        <div class="flex items-center gap-2 md:gap-4">
-                            <!-- Stethoscope / Medical Cross Icon -->
-                            <div class="relative hidden sm:block">
-                                <i class="fa-solid fa-house-medical text-green-700 text-4xl md:text-5xl"></i>
-                            </div>
-                            <div>
-                                <!-- Doctor Name (Hind Siliguri Bold, Single Line) -->
-                                <h4 class="font-bold text-slate-900 text-xl md:text-3xl font-sans tracking-tight mb-1 whitespace-nowrap">
-                                    ডা. কাজী মো: ইমরান
-                                </h4>
-                                <p class="text-xs md:text-sm text-slate-700 font-semibold">চিকিৎসা বিশেষজ্ঞ (সিঙ্গেল এক্সপার্ট ও দম্পতি সুখ নিরাময় বিভাগ)</p>
-                                <p class="text-[10px] md:text-xs text-slate-500 mt-0.5">বিএমডিসি রেজি নং: ৭৭০৭-বিবাহ</p>
-                            </div>
-                        </div>
-                        <div class="text-right flex flex-col items-end pl-2">
-                            <span class="text-4xl md:text-5xl font-bold text-blue-700 italic font-serif">Rx</span>
-                            <p class="text-[10px] md:text-sm text-slate-700 font-semibold mt-2 whitespace-nowrap" id="rxDate">তারিখ: লোডিং...</p>
-                        </div>
-                    </div>
-
-                    <!-- Patient Info Header -->
-                    <div class="bg-[#f0f4ec] p-4 rounded-xl border border-slate-200 mb-6 flex justify-between items-center relative z-10 shadow-sm">
-                        <div class="space-y-2">
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-user text-green-700 text-lg w-5 text-center"></i>
-                                <div class="text-sm text-slate-800"><strong>রোগীর নাম:</strong> <span id="rxPatientName">অজ্ঞাত</span></div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-clipboard-list text-green-700 text-lg w-5 text-center"></i>
-                                <div class="text-sm text-slate-800"><strong>রোগ:</strong> <span id="rxDisease">ক্রনিক একাকীত্ব সিন্ড্রোম</span></div>
-                            </div>
-                            <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-heart-pulse text-green-700 text-lg w-5 text-center"></i>
-                                <div class="text-sm text-slate-800"><strong>অবস্থা:</strong> <span id="rxCondition">জটিল সিঙ্গেল</span></div>
-                            </div>
-                        </div>
-                        <div class="hidden sm:block">
-                            <i class="fa-solid fa-user-doctor text-slate-400 text-6xl"></i>
-                        </div>
-                    </div>
-
-                    <!-- Dynamic Rx Medicines -->
-                    <div class="mb-6 relative z-10">
-                        <h5 class="text-base font-bold text-slate-900 mb-4">ওষুধের তালিকা (প্রতি সেবনে কার্যকারী)</h5>
-                        <ul id="rxMedsList" class="space-y-4">
-                            <!-- Dynamic Prescriptions populate here -->
-                        </ul>
-                    </div>
-
-                    <!-- Doctor's Advice -->
-                    <div class="border-t-[1.5px] border-slate-300 pt-4 pb-2 relative z-10 flex items-start gap-2">
-                        <i class="fa-regular fa-square-plus text-green-700 text-xl mt-0.5"></i>
-                        <div>
-                            <p class="font-bold text-slate-900 text-base mb-1">ডাক্তারের বিশেষ পরামর্শ:</p>
-                            <p id="rxDoctorAdvice" class="italic text-slate-700 text-sm font-medium">"প্রেসক্রিপশন অনুযায়ী দ্রুত বরযাত্রীর আয়োজন করুন।"</p>
-                        </div>
-                    </div>
-
-                    <!-- Developer Watermark -->
-                    <div class="text-right mt-2 relative z-10">
-                        <p class="font-dev italic text-xs text-slate-400/80 font-bold">Developer by iMRAN</p>
-                    </div>
+                <!-- Prescription Canvas Area -->
+                <div class="overflow-x-auto flex justify-center py-2">
+                    <canvas id="prescriptionCanvas" class="max-w-full rounded-2xl shadow-2xl border-2 border-slate-300"></canvas>
                 </div>
 
                 <!-- Prescription Download Button -->
-                <div class="flex justify-center mt-3">
-                    <button onclick="downloadPrescription()" 
-                        class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold px-6 py-3 rounded-xl text-sm flex items-center gap-2 shadow-lg shadow-blue-500/20 transition transform active:scale-95">
-                        <i class="fa-solid fa-download text-lg"></i> প্রেসক্রিপশন ডাউনলোড করুন
+                <div class="flex justify-center pt-2">
+                    <button onclick="downloadPrescriptionCanvas()" 
+                        class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-extrabold px-6 py-3.5 rounded-xl text-base flex items-center gap-2 shadow-lg shadow-blue-500/20 transition transform active:scale-95">
+                        <i class="fa-solid fa-file-arrow-down text-xl"></i> প্রেসক্রিপশন ডাউনলোড করুন
                     </button>
                 </div>
             </div>
@@ -532,9 +463,14 @@
             let relativeQuestions = 0;
             let badge = '';
 
-            // Generate Random Texts for Canvas Poster
             const randTitle = status === 'single' ? singlePosterTitles[Math.floor(Math.random() * singlePosterTitles.length)] : marriedPosterTitles[Math.floor(Math.random() * marriedPosterTitles.length)];
             const randHigh = status === 'single' ? singlePosterHighs[Math.floor(Math.random() * singlePosterHighs.length)] : marriedPosterHighs[Math.floor(Math.random() * marriedPosterHighs.length)];
+
+            // Medicines Selection
+            const pool = (status === 'married') ? marriedMedicinePool : singleMedicinePool;
+            const advices = (status === 'married') ? marriedDoctorAdvices : singleDoctorAdvices;
+            const chosenMeds = [...pool].sort(() => 0.5 - Math.random()).slice(0, 3);
+            const chosenAdvice = advices[Math.floor(Math.random() * advices.length)];
 
             if (status === 'single') {
                 biryaniLoss = fridays * 250; 
@@ -546,12 +482,8 @@
                 else if(fridays < 1500) badge = 'লেভেল ৩: কাজী অফিসের চিরস্থায়ী কাস্টমার';
                 else badge = 'লেভেল ৪: মোস্ট ওয়ান্টেড সিঙ্গেল!';
 
-                // UI Text Changes for Single
                 document.getElementById('foodBox1Label').innerHTML = '<i class="fa-solid fa-circle-xmark"></i> আজ বাস্তবতায় যা খেলেন (একাকী):';
                 document.getElementById('foodBox2Label').innerHTML = '<i class="fa-solid fa-circle-check"></i> শ্বশুরবাড়িতে যা আজ মিস হলো:';
-
-                document.getElementById('rxDisease').innerText = 'অতিরিক্ত একাকীত্ব ও বিরিয়ানি শূন্যতা সিন্ড্রোম';
-                document.getElementById('rxCondition').innerText = 'জটিল সিঙ্গেল লেভেল';
 
             } else { // Married
                 biryaniLoss = fridays * 2; 
@@ -560,12 +492,8 @@
 
                 badge = 'পরম সুখী অভিজ্ঞ বিবাহিত';
 
-                // UI Text Changes for Married
                 document.getElementById('foodBox1Label').innerHTML = '<i class="fa-solid fa-utensils text-emerald-400"></i> আজ শ্বশুরবাড়িতে/ঘরে যা পেটপুজো করলেন:';
                 document.getElementById('foodBox2Label').innerHTML = '<i class="fa-solid fa-gift text-amber-400"></i> বউয়ের থেকে আজ স্পেশাল যা পেলেন:';
-
-                document.getElementById('rxDisease').innerText = 'অতিরিক্ত সুখ ও জামাই আদর সিন্ড্রোম';
-                document.getElementById('rxCondition').innerText = 'পরম সুখী বিবাহিত';
             }
 
             // Save Global Data
@@ -578,58 +506,22 @@
                 savedGoats,
                 relativeQuestions,
                 randTitle,
-                randHigh
+                randHigh,
+                chosenMeds,
+                chosenAdvice
             };
 
-            // Set Actual Date in Bengali
-            const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            const actualDate = new Date().toLocaleDateString('bn-BD', options);
-            document.getElementById('rxDate').innerText = 'তারিখ: ' + actualDate;
-
-            document.getElementById('rxPatientName').innerText = name;
-            generatePrescription(status);
             refreshFoodMenu(status);
 
-            // Wait for fonts to load before drawing on canvas to avoid fallback fonts
+            // Wait for fonts to load before drawing canvases
             document.fonts.ready.then(function() {
                 drawPosterCertificate();
+                drawPrescriptionCanvas();
             });
 
             const resArea = document.getElementById('resultArea');
             resArea.classList.remove('hidden');
             resArea.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Generate Dynamic Medical Prescription (Redesigned matching Reference Image)
-        function generatePrescription(status) {
-            const pool = (status === 'married') ? marriedMedicinePool : singleMedicinePool;
-            const advices = (status === 'married') ? marriedDoctorAdvices : singleDoctorAdvices;
-
-            const shuffledMeds = [...pool].sort(() => 0.5 - Math.random()).slice(0, 3);
-            const medsListElem = document.getElementById('rxMedsList');
-            medsListElem.innerHTML = '';
-
-            shuffledMeds.forEach((med, idx) => {
-                // Assign a consistent icon mapping
-                const iconClass = med.name.includes("Inj.") ? 'fa-syringe' : (med.name.includes("Syr.") ? 'fa-prescription-bottle-medical' : 'fa-capsules');
-                
-                const li = document.createElement('li');
-                li.className = 'flex items-start gap-4 border-b border-dashed border-slate-300 pb-3';
-                li.innerHTML = `
-                    <div class="text-3xl text-green-700 w-8 text-center pt-1 opacity-80"><i class="fa-solid ${iconClass}"></i></div>
-                    <div class="flex-1">
-                        <div class="text-blue-950 font-bold text-base md:text-lg tracking-tight">${idx + 1}. ${med.name}</div>
-                        <div class="text-slate-800 text-sm font-medium leading-snug my-1">(${med.note})</div>
-                        <div class="inline-block mt-1 bg-red-50 text-red-600 border border-red-200 rounded px-2.5 py-0.5 text-xs font-bold">
-                            ${med.dose}
-                        </div>
-                    </div>
-                `;
-                medsListElem.appendChild(li);
-            });
-
-            const randomAdvice = advices[Math.floor(Math.random() * advices.length)];
-            document.getElementById('rxDoctorAdvice').innerText = `"${randomAdvice}"`;
         }
 
         function refreshFoodMenu(status) {
@@ -645,23 +537,178 @@
             document.getElementById('marriedMenu').innerText = item2;
         }
 
-        // Feature: Download Prescription as Image
-        function downloadPrescription() {
-            const rxPaper = document.getElementById('rxPaperContainer');
-            // Adding html2canvas call
-            html2canvas(rxPaper, { scale: 2, backgroundColor: null }).then(canvas => {
-                const link = document.createElement('a');
-                link.download = `${globalData.name}_Prescription.png`;
-                link.href = canvas.toDataURL('image/png', 1.0);
-                link.click();
-                showToast('প্রেসক্রিপশন ডাউনলোড হয়েছে!');
-            }).catch(err => {
-                console.error("Prescription download error: ", err);
-                showToast('ডাউনলোড করতে সমস্যা হচ্ছে!');
+        // DRAW PRESCRIPTION ON CANVAS FOR 100% RELIABLE HD DOWNLOAD
+        function drawPrescriptionCanvas() {
+            const canvas = document.getElementById('prescriptionCanvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = 750;
+            canvas.height = 1050;
+
+            // Background
+            ctx.fillStyle = '#fcfcfc';
+            ctx.fillRect(0, 0, 750, 1050);
+
+            // Border
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(15, 15, 720, 1020);
+
+            // Header Section
+            // Green Cross Medical Symbol
+            ctx.fillStyle = '#15803d';
+            roundRect(ctx, 45, 45, 18, 54, 4, true, false);
+            roundRect(ctx, 27, 63, 54, 18, 4, true, false);
+
+            // Doctor Name (Hind Siliguri Bold - Single Line)
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 30px "Hind Siliguri", sans-serif';
+            ctx.fillText('ডা. কাজী মো: ইমরান', 100, 72);
+
+            ctx.fillStyle = '#334155';
+            ctx.font = 'bold 15px "Hind Siliguri", sans-serif';
+            ctx.fillText('চিকিৎসা বিশেষজ্ঞ (সিঙ্গেল এক্সপার্ট ও দম্পতি সুখ নিরাময় বিভাগ)', 100, 98);
+
+            ctx.fillStyle = '#64748b';
+            ctx.font = '13px "Hind Siliguri", sans-serif';
+            ctx.fillText('বিএমডিসি রেজি নং: ৭৭০৭-বিবাহ', 100, 118);
+
+            // Big Rx Text Right Side
+            ctx.textAlign = 'right';
+            ctx.fillStyle = '#1d4ed8';
+            ctx.font = 'italic bold 52px "Playfair Display", serif';
+            ctx.fillText('Rx', 705, 80);
+
+            // Actual Date
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const actualDateStr = new Date().toLocaleDateString('bn-BD', options);
+            ctx.fillStyle = '#334155';
+            ctx.font = 'bold 14px "Hind Siliguri", sans-serif';
+            ctx.fillText('তারিখ: ' + actualDateStr, 705, 112);
+
+            // Header Divider Line
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(30, 140);
+            ctx.lineTo(720, 140);
+            ctx.stroke();
+
+            // Patient Info Box (Light Greenish Background)
+            ctx.fillStyle = '#f0f4ec';
+            roundRect(ctx, 40, 160, 670, 130, 16, true, false);
+            ctx.strokeStyle = '#e2e8f0';
+            ctx.lineWidth = 1;
+            roundRect(ctx, 40, 160, 670, 130, 16, false, true);
+
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#1e293b';
+            ctx.font = '17px "Hind Siliguri", sans-serif';
+            ctx.fillText('👤 রোগীর নাম:', 65, 200);
+            ctx.font = 'bold 20px "Hind Siliguri", sans-serif';
+            ctx.fillStyle = '#0f172a';
+            ctx.fillText(globalData.name, 175, 200);
+
+            ctx.fillStyle = '#1e293b';
+            ctx.font = '17px "Hind Siliguri", sans-serif';
+            ctx.fillText('📋 রোগ:', 65, 240);
+            ctx.font = 'bold 17px "Hind Siliguri", sans-serif';
+            ctx.fillStyle = '#b91c1c';
+            const diseaseText = globalData.status === 'married' ? 'অতিরিক্ত সুখ ও জামাই আদর সিন্ড্রোম' : 'ক্রনিক একাকীত্ব ও বিরিয়ানি শূন্যতা সিন্ড্রোম';
+            ctx.fillText(diseaseText, 140, 240);
+
+            ctx.fillStyle = '#1e293b';
+            ctx.font = '17px "Hind Siliguri", sans-serif';
+            ctx.fillText('💓 অবস্থা:', 65, 275);
+            ctx.font = 'bold 17px "Hind Siliguri", sans-serif';
+            ctx.fillStyle = '#15803d';
+            const condText = globalData.status === 'married' ? 'পরম সুখী বিবাহিত' : 'জটিল সিঙ্গেল লেভেল';
+            ctx.fillText(condText, 145, 275);
+
+            // Medicine List Header
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 20px "Hind Siliguri", sans-serif';
+            ctx.fillText('ওষুধের তালিকা (প্রতি সেবনে কার্যকারী):', 40, 335);
+
+            // Draw Medicine Items
+            let startY = 380;
+            globalData.chosenMeds.forEach((med, idx) => {
+                // Number & Name
+                ctx.fillStyle = '#1e3a8a';
+                ctx.font = 'bold 22px "Hind Siliguri", sans-serif';
+                ctx.fillText(`${toBnNum(idx + 1)}. ${med.name}`, 50, startY);
+
+                // Note
+                ctx.fillStyle = '#334155';
+                ctx.font = '16px "Hind Siliguri", sans-serif';
+                ctx.fillText(`(${med.note})`, 65, startY + 28);
+
+                // Dose Box
+                ctx.fillStyle = '#fef2f2';
+                roundRect(ctx, 65, startY + 40, 260, 32, 8, true, false);
+                ctx.strokeStyle = '#fecaca';
+                ctx.lineWidth = 1;
+                roundRect(ctx, 65, startY + 40, 260, 32, 8, false, true);
+
+                ctx.fillStyle = '#dc2626';
+                ctx.font = 'bold 14px "Hind Siliguri", sans-serif';
+                ctx.fillText(med.dose, 80, startY + 61);
+
+                // Dotted Divider Line
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 1;
+                ctx.setLineDash([4, 4]);
+                ctx.beginPath();
+                ctx.moveTo(40, startY + 90);
+                ctx.lineTo(710, startY + 90);
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                startY += 115;
             });
+
+            // Doctor's Special Advice Box at Bottom
+            ctx.fillStyle = '#0f172a';
+            ctx.font = 'bold 18px "Hind Siliguri", sans-serif';
+            ctx.fillText('🩺 ডাক্তারের বিশেষ পরামর্শ:', 40, 835);
+
+            ctx.fillStyle = '#334155';
+            ctx.font = 'italic 18px "Hind Siliguri", sans-serif';
+            ctx.fillText(`"${globalData.chosenAdvice}"`, 40, 870);
+
+            ctx.strokeStyle = '#cbd5e1';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(40, 920);
+            ctx.lineTo(710, 920);
+            ctx.stroke();
+
+            // Developer Watermark Right Side
+            const devGrad = ctx.createLinearGradient(550, 960, 710, 1010);
+            devGrad.addColorStop(0, '#e11d48');
+            devGrad.addColorStop(0.5, '#d97706');
+            devGrad.addColorStop(1, '#6366f1');
+
+            ctx.fillStyle = devGrad;
+            ctx.textAlign = 'right';
+            ctx.font = 'italic 700 16px "Playfair Display", serif';
+            ctx.fillText('Developer by', 705, 965);
+            ctx.font = 'normal 700 22px "Playfair Display", serif';
+            ctx.fillText('iMRAN', 705, 990);
         }
 
-        // DRAW POSTER CERTIFICATE ON CANVAS 
+        function downloadPrescriptionCanvas() {
+            const canvas = document.getElementById('prescriptionCanvas');
+            const link = document.createElement('a');
+            link.download = `${globalData.name}_Prescription.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+
+            showToast('মেডিকেল প্রেসক্রিপশন ডাউনলোড হয়েছে!');
+        }
+
+        // DRAW POSTER CERTIFICATE ON CANVAS
         function drawPosterCertificate() {
             const canvas = document.getElementById('certificateCanvas');
             const ctx = canvas.getContext('2d');
@@ -710,7 +757,7 @@
             ctx.stroke();
             ctx.setLineDash([]);
 
-            // Sub Headlines 
+            // Sub Headlines
             ctx.fillStyle = '#1e293b';
             ctx.font = 'bold 22px "Hind Siliguri", sans-serif';
             if (isSingle) {
@@ -724,7 +771,7 @@
             ctx.font = 'bold 38px "Tiro Bangla", serif';
             ctx.fillText(globalData.randHigh, 375, 235);
 
-            // 4. Center Main Floating Profile Card 
+            // 4. Center Main Floating Profile Card
             const cardX = 190;
             const cardY = 265;
             const cardW = 370;
@@ -831,9 +878,9 @@
 
             // 6. Developer Credit Signature (Small at bottom right side)
             const devGrad = ctx.createLinearGradient(600, 980, 730, 1025);
-            devGrad.addColorStop(0, '#e11d48');   // Rose
-            devGrad.addColorStop(0.5, '#d97706'); // Amber/Gold
-            devGrad.addColorStop(1, '#6366f1');   // Indigo
+            devGrad.addColorStop(0, '#e11d48');
+            devGrad.addColorStop(0.5, '#d97706');
+            devGrad.addColorStop(1, '#6366f1');
 
             ctx.fillStyle = devGrad;
             ctx.textAlign = 'right';
