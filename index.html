@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="bn" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -33,18 +34,41 @@
         }
     </script>
     <style>
-        body {
+        /* Dark Mode Background */
+        html.dark body {
             background-color: #0b0f17;
             background-image: 
                 radial-gradient(at 15% 15%, rgba(244, 63, 94, 0.15) 0px, transparent 50%),
                 radial-gradient(at 85% 85%, rgba(56, 189, 248, 0.15) 0px, transparent 50%);
-            background-attachment: fixed;
+            color: #f8fafc;
         }
 
-        .glass-panel {
+        /* Light Mode Background */
+        html:not(.dark) body {
+            background-color: #f8fafc;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(244, 63, 94, 0.08) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(56, 189, 248, 0.08) 0px, transparent 50%);
+            color: #0f172a;
+        }
+
+        body {
+            background-attachment: fixed;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Glass Panel Styling */
+        html.dark .glass-panel {
             background: rgba(22, 30, 46, 0.75);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        html:not(.dark) .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         .radar-sweep {
@@ -69,32 +93,34 @@
         .rx-paper {
             background: #fcfcfc;
             color: #1e293b;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
             background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
             position: relative;
             overflow: hidden;
         }
-        
-        .rx-leaf-bg {
-            position: absolute;
-            color: rgba(34, 197, 94, 0.05);
-            z-index: 0;
-            pointer-events: none;
-        }
     </style>
 </head>
-<body class="text-slate-100 min-h-screen font-sans flex flex-col items-center justify-start p-4 md:p-8">
+<body class="min-h-screen font-sans flex flex-col items-center justify-start p-4 md:p-8 relative">
+
+    <!-- Theme Toggle Floating Button -->
+    <div class="fixed top-4 right-4 z-50">
+        <button id="themeToggleBtn" onclick="toggleTheme()" 
+            class="flex items-center gap-2 px-4 py-2.5 rounded-full font-bold text-sm shadow-xl transition transform active:scale-95 border dark:bg-slate-800 dark:text-amber-400 dark:border-slate-700 bg-white text-slate-800 border-slate-200 hover:shadow-2xl">
+            <i id="themeIcon" class="fa-solid fa-moon text-lg"></i>
+            <span id="themeText" class="hidden sm:inline">ডার্ক মোড</span>
+        </button>
+    </div>
 
     <!-- Header Section -->
     <header class="max-w-2xl w-full text-center my-6">
         <div class="inline-block p-4 rounded-full bg-rose-500/10 border border-rose-500/20 mb-3 animate-bounce">
-            <span class="text-5xl">🕌</span>
+            <span class="text-5xl">👩‍❤️‍👨</span>
         </div>
         <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-sky-400 to-amber-400 mb-2">
             বউ ছাড়া কত শুক্রবার?
         </h1>
-        <p class="text-slate-400 text-base md:text-lg">
-            তথ্য দিন, ছবি আপলোড করুন আর সাথে সাথেই পেয়ে যান আপনার ফানি পোস্টার ও মেডিকেল প্রেসক্রিপশন!
+        <p class="text-slate-500 dark:text-slate-400 text-base md:text-lg">
+            তথ্য দিন, ছবি আপলোড করুন আর সাথে সাথেই পেয়ে যান আপনার ফানি ডিজিটাল পোস্টার!
         </p>
     </header>
 
@@ -109,45 +135,45 @@
                 
                 <!-- ১. নাম ইনপুট -->
                 <div>
-                    <label class="block text-slate-300 font-semibold mb-2">
-                        <i class="fa-solid fa-user text-rose-400 mr-2"></i>আপনার নাম:
+                    <label class="block text-slate-700 dark:text-slate-300 font-semibold mb-2">
+                        <i class="fa-solid fa-user text-rose-500 mr-2"></i>আপনার নাম:
                     </label>
                     <input type="text" id="userName" placeholder="যেমন: ইমরান হোসেন" required
-                        class="w-full bg-slate-900/80 border border-slate-700 focus:border-rose-500 rounded-xl px-4 py-3 text-slate-100 outline-none transition">
+                        class="w-full bg-slate-100 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700 focus:border-rose-500 dark:focus:border-rose-500 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-100 outline-none transition">
                 </div>
 
                 <!-- ২. জন্মতারিখ ইনপুট -->
                 <div>
-                    <label class="block text-slate-300 font-semibold mb-2">
-                        <i class="fa-solid fa-cake-candles text-sky-400 mr-2"></i>জন্মতারিখ:
+                    <label class="block text-slate-700 dark:text-slate-300 font-semibold mb-2">
+                        <i class="fa-solid fa-cake-candles text-sky-500 mr-2"></i>জন্মতারিখ:
                     </label>
                     <input type="date" id="dobInput" required
-                        class="w-full bg-slate-900/80 border border-slate-700 focus:border-rose-500 rounded-xl px-4 py-3 text-slate-100 outline-none transition">
+                        class="w-full bg-slate-100 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700 focus:border-rose-500 dark:focus:border-rose-500 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-100 outline-none transition">
                 </div>
 
                 <!-- ৩. ছবি আপলোড অপশন (কম্প্যাক্ট) -->
-                <div class="bg-slate-900/60 p-3 rounded-2xl border border-rose-500/30">
-                    <label class="block text-slate-200 font-semibold text-sm mb-2 text-left">
-                        <i class="fa-solid fa-camera-retro text-rose-400 mr-1.5"></i>পোস্টারের জন্য ছবি আপলোড করুন:
+                <div class="bg-rose-50/50 dark:bg-slate-900/60 p-3 rounded-2xl border border-rose-500/20 dark:border-rose-500/30">
+                    <label class="block text-slate-800 dark:text-slate-200 font-semibold text-sm mb-2 text-left">
+                        <i class="fa-solid fa-camera-retro text-rose-500 mr-1.5"></i>পোস্টারের জন্য ছবি আপলোড করুন:
                     </label>
                     <div class="flex items-center gap-3">
-                        <div id="photoPreviewContainer" class="w-12 h-14 rounded-lg bg-slate-800 border border-dashed border-rose-400/50 overflow-hidden flex items-center justify-center flex-shrink-0 relative shadow-inner">
+                        <div id="photoPreviewContainer" class="w-12 h-14 rounded-lg bg-slate-200 dark:bg-slate-800 border border-dashed border-rose-400/50 overflow-hidden flex items-center justify-center flex-shrink-0 relative shadow-inner">
                             <img id="photoPreview" src="" class="w-full h-full object-cover hidden" alt="প্রিভিউ">
                             <div id="photoPlaceholder" class="text-center p-1">
-                                <i class="fa-solid fa-cloud-arrow-up text-rose-400 text-lg block"></i>
+                                <i class="fa-solid fa-cloud-arrow-up text-rose-500 text-lg block"></i>
                             </div>
                         </div>
-                        <input type="file" id="userPhoto" accept="image/*" class="block w-full text-xs text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-rose-500/20 file:text-rose-300 hover:file:bg-rose-500/30 cursor-pointer">
+                        <input type="file" id="userPhoto" accept="image/*" class="block w-full text-xs text-slate-500 dark:text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-rose-500/10 dark:file:bg-rose-500/20 file:text-rose-600 dark:file:text-rose-300 hover:file:bg-rose-500/20 cursor-pointer">
                     </div>
                 </div>
 
                 <!-- ৪. বর্তমান স্ট্যাটাস -->
                 <div>
-                    <label class="block text-slate-300 font-semibold mb-2">
-                        <i class="fa-solid fa-heart-crack text-amber-400 mr-2"></i>বর্তমান স্ট্যাটাস:
+                    <label class="block text-slate-700 dark:text-slate-300 font-semibold mb-2">
+                        <i class="fa-solid fa-heart-crack text-amber-500 mr-2"></i>বর্তমান স্ট্যাটাস:
                     </label>
                     <select id="userStatus" onchange="toggleMarriageDate()"
-                        class="w-full bg-slate-900/80 border border-slate-700 focus:border-rose-500 rounded-xl px-4 py-3 text-slate-100 outline-none transition">
+                        class="w-full bg-slate-100 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700 focus:border-rose-500 dark:focus:border-rose-500 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-100 outline-none transition">
                         <option value="single">পাকা সিঙ্গেল (এখনও একা)</option>
                         <option value="married">বিবাহিত (সুখী বিবাহিত)</option>
                     </select>
@@ -155,11 +181,11 @@
 
                 <!-- ৫. বিবাহের তারিখ (বিবাহিতদের জন্য) -->
                 <div id="marriageDateContainer" class="hidden">
-                    <label class="block text-slate-300 font-semibold mb-2">
-                        <i class="fa-solid fa-ring text-amber-400 mr-2"></i>বিবাহের তারিখ:
+                    <label class="block text-slate-700 dark:text-slate-300 font-semibold mb-2">
+                        <i class="fa-solid fa-ring text-amber-500 mr-2"></i>বিবাহের তারিখ:
                     </label>
                     <input type="date" id="marriageInput"
-                        class="w-full bg-slate-900/80 border border-slate-700 focus:border-rose-500 rounded-xl px-4 py-3 text-slate-100 outline-none transition">
+                        class="w-full bg-slate-100 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700 focus:border-rose-500 dark:focus:border-rose-500 rounded-xl px-4 py-3 text-slate-800 dark:text-slate-100 outline-none transition">
                 </div>
 
                 <!-- ৬. সাবমিট বাটন -->
@@ -174,8 +200,8 @@
         <div id="resultArea" class="hidden space-y-6">
 
             <!-- Official Poster Display Area -->
-            <div class="glass-panel rounded-3xl p-4 md:p-6 text-center border-2 border-rose-500/40 bg-slate-950/80 space-y-4">
-                <div class="flex items-center justify-center gap-2 text-rose-400 font-bold text-lg">
+            <div class="glass-panel rounded-3xl p-4 md:p-6 text-center border-2 border-rose-500/40 dark:bg-slate-950/80 bg-white/90 space-y-4">
+                <div class="flex items-center justify-center gap-2 text-rose-500 dark:text-rose-400 font-bold text-lg">
                     <i class="fa-solid fa-award text-2xl"></i> আপনার কাস্টমাইজড ডিজিটাল পোস্টার
                 </div>
                 
@@ -191,7 +217,7 @@
                     </button>
 
                     <button onclick="copyShareText()" 
-                        class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-3.5 rounded-xl text-sm flex items-center gap-2 border border-slate-700 transition">
+                        class="bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold px-5 py-3.5 rounded-xl text-sm flex items-center gap-2 border border-slate-300 dark:border-slate-700 transition">
                         <i class="fa-solid fa-copy"></i> ক্যাপশন কপি করুন
                     </button>
                 </div>
@@ -200,58 +226,58 @@
             <!-- Primary Metrics Grid -->
             <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                 <div class="glass-panel col-span-2 md:col-span-3 rounded-2xl p-6 text-center border-rose-500/30 bg-rose-500/5">
-                    <span id="resMainTitle" class="text-xs font-semibold tracking-wider text-rose-400 uppercase">মোট একাকী শুক্রবার</span>
-                    <div id="resFridays" class="text-4xl md:text-6xl font-extrabold text-rose-500 my-1">০</div>
-                    <p id="resLevelBadge" class="inline-block bg-sky-500/20 text-sky-300 border border-sky-500/30 px-4 py-1 rounded-full text-sm font-semibold mt-1">
+                    <span id="resMainTitle" class="text-xs font-semibold tracking-wider text-rose-500 dark:text-rose-400 uppercase">মোট একাকী শুক্রবার</span>
+                    <div id="resFridays" class="text-4xl md:text-6xl font-extrabold text-rose-600 dark:text-rose-500 my-1">০</div>
+                    <p id="resLevelBadge" class="inline-block bg-sky-500/10 dark:bg-sky-500/20 text-sky-600 dark:text-sky-300 border border-sky-500/30 px-4 py-1 rounded-full text-sm font-semibold mt-1">
                         লেভেল: লোডিং...
                     </p>
                 </div>
 
                 <div class="glass-panel rounded-2xl p-4 text-center">
                     <div class="text-2xl mb-1">🍗</div>
-                    <div id="resBiryaniLoss" class="text-xl md:text-2xl font-bold text-amber-400">৳০</div>
-                    <div id="labelBiryani" class="text-xs text-slate-400 mt-1">কাচ্চি বিরিয়ানি লস</div>
+                    <div id="resBiryaniLoss" class="text-xl md:text-2xl font-bold text-amber-500 dark:text-amber-400">৳০</div>
+                    <div id="labelBiryani" class="text-xs text-slate-500 dark:text-slate-400 mt-1">কাচ্চি বিরিয়ানি লস</div>
                 </div>
 
                 <div class="glass-panel rounded-2xl p-4 text-center">
                     <div class="text-2xl mb-1">🐐</div>
-                    <div id="resSavedGoats" class="text-xl md:text-2xl font-bold text-emerald-400">০ টি</div>
-                    <div id="labelGoats" class="text-xs text-slate-400 mt-1">বেঁচে যাওয়া খাসি</div>
+                    <div id="resSavedGoats" class="text-xl md:text-2xl font-bold text-emerald-600 dark:text-emerald-400">০ টি</div>
+                    <div id="labelGoats" class="text-xs text-slate-500 dark:text-slate-400 mt-1">বেঁচে যাওয়া খাসি</div>
                 </div>
 
                 <div class="glass-panel col-span-2 md:col-span-1 rounded-2xl p-4 text-center">
                     <div class="text-2xl mb-1" id="iconQuestions">🗣️</div>
-                    <div id="resQuestions" class="text-xl md:text-2xl font-bold text-purple-400">০ বার</div>
-                    <div id="labelQuestions" class="text-xs text-slate-400 mt-1">"বিয়ে কবে করবা?" শোনা কথা</div>
+                    <div id="resQuestions" class="text-xl md:text-2xl font-bold text-purple-600 dark:text-purple-400">০ বার</div>
+                    <div id="labelQuestions" class="text-xs text-slate-500 dark:text-slate-400 mt-1">"বিয়ে কবে করবা?" শোনা কথা</div>
                 </div>
             </div>
 
             <!-- Dynamic Friday Food Menu Comparison Card -->
-            <div class="glass-panel rounded-2xl p-5 border-slate-700">
+            <div class="glass-panel rounded-2xl p-5 border-slate-200 dark:border-slate-700">
                 <div class="mb-3">
-                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
-                        <i class="fa-solid fa-utensils text-rose-400"></i> শুক্রবারে আপনার বাস্তব খাদ্যতালিকা
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-utensils text-rose-500"></i> শুক্রবারে আপনার বাস্তব খাদ্যতালিকা
                     </h3>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-rose-500/20">
-                        <span id="foodBox1Label" class="text-rose-400 font-bold block mb-1 flex items-center gap-1">
+                    <div class="bg-rose-50/50 dark:bg-slate-900/80 p-4 rounded-xl border border-rose-500/20">
+                        <span id="foodBox1Label" class="text-rose-600 dark:text-rose-400 font-bold block mb-1 flex items-center gap-1">
                             <i class="fa-solid fa-circle-xmark"></i> আজ বাস্তবতায় যা খেলেন:
                         </span>
-                        <p id="bachelorMenu" class="text-slate-200 font-semibold text-base mt-1">লোডিং...</p>
+                        <p id="bachelorMenu" class="text-slate-800 dark:text-slate-200 font-semibold text-base mt-1">লোডিং...</p>
                     </div>
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-emerald-500/20">
-                        <span id="foodBox2Label" class="text-emerald-400 font-bold block mb-1 flex items-center gap-1">
+                    <div class="bg-emerald-50/50 dark:bg-slate-900/80 p-4 rounded-xl border border-emerald-500/20">
+                        <span id="foodBox2Label" class="text-emerald-600 dark:text-emerald-400 font-bold block mb-1 flex items-center gap-1">
                             <i class="fa-solid fa-circle-check"></i> শ্বশুরবাড়িতে যা আজ মিস হলো:
                         </span>
-                        <p id="marriedMenu" class="text-slate-200 font-semibold text-base mt-1">লোডিং...</p>
+                        <p id="marriedMenu" class="text-slate-800 dark:text-slate-200 font-semibold text-base mt-1">লোডিং...</p>
                     </div>
                 </div>
             </div>
 
             <!-- Dynamic Doctor's Prescription Generator Section -->
-            <div class="glass-panel rounded-3xl p-4 md:p-6 text-center border-2 border-blue-500/40 bg-slate-950/80 space-y-4">
-                <div class="flex items-center justify-center gap-2 text-blue-400 font-bold text-lg">
+            <div class="glass-panel rounded-3xl p-4 md:p-6 text-center border-2 border-blue-500/40 dark:bg-slate-950/80 bg-white/90 space-y-4">
+                <div class="flex items-center justify-center gap-2 text-blue-600 dark:text-blue-400 font-bold text-lg">
                     <i class="fa-solid fa-file-prescription text-2xl"></i> আপনার মেডিকেল প্রেসক্রিপশন
                 </div>
 
@@ -274,11 +300,11 @@
                 <div class="relative w-16 h-16 rounded-full border-2 border-emerald-500/40 bg-emerald-950/30 flex items-center justify-center flex-shrink-0">
                     <div class="absolute inset-0 rounded-full border border-emerald-500/20 pulse-slow"></div>
                     <div class="w-full h-0.5 bg-emerald-500/60 absolute radar-sweep origin-center"></div>
-                    <i class="fa-solid fa-mosque text-emerald-400 text-xl"></i>
+                    <i class="fa-solid fa-mosque text-emerald-500 dark:text-emerald-400 text-xl"></i>
                 </div>
                 <div>
-                    <h4 id="radarTitle" class="font-bold text-emerald-400 text-base">কাজী অফিস জিপিএস রাডার</h4>
-                    <p id="radarText" class="text-xs text-slate-300 mt-0.5">
+                    <h4 id="radarTitle" class="font-bold text-emerald-600 dark:text-emerald-400 text-base">কাজী অফিস জিপিএস রাডার</h4>
+                    <p id="radarText" class="text-xs text-slate-600 dark:text-slate-300 mt-0.5">
                         স্ক্যানিং চলছে... নিকটস্থ কাজী অফিস মাত্র ২০০ মিটার দূরে অপেক্ষা করছে!
                     </p>
                 </div>
@@ -289,19 +315,19 @@
     </main>
 
     <!-- Developer Footer Section -->
-    <footer class="max-w-2xl w-full text-center mt-12 mb-6 pt-6 border-t border-slate-800/80">
+    <footer class="max-w-2xl w-full text-center mt-12 mb-6 pt-6 border-t border-slate-300 dark:border-slate-800/80">
         <p class="text-2xl font-bold font-dev italic text-rose-500 mb-1 tracking-wide" style="background: linear-gradient(90deg, #e11d48, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
             Developer by iMRAN
         </p>
-        <p class="text-xs text-slate-400 mb-4 font-sans">যোগাযোগ ও সাপোর্টের জন্য লিংক ব্যবহার করুন</p>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-4 font-sans">যোগাযোগ ও সাপোর্টের জন্য লিংক ব্যবহার করুন</p>
         <div class="flex flex-wrap justify-center gap-3">
             <a href="https://www.facebook.com/share/1EpA2LHC4z/" target="_blank" rel="noopener noreferrer" 
-                class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/40 px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition transform hover:-translate-y-0.5 font-sans">
+                class="bg-blue-600/10 dark:bg-blue-600/20 hover:bg-blue-600/30 text-blue-600 dark:text-blue-400 border border-blue-500/30 dark:border-blue-500/40 px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition transform hover:-translate-y-0.5 font-sans">
                 <i class="fa-brands fa-facebook text-lg"></i> ফেসবুক প্রোফাইল
             </a>
 
             <a href="https://wa.me/8801522138677" target="_blank" rel="noopener noreferrer" 
-                class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/40 px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition transform hover:-translate-y-0.5 font-sans">
+                class="bg-emerald-600/10 dark:bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 dark:border-emerald-500/40 px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition transform hover:-translate-y-0.5 font-sans">
                 <i class="fa-brands fa-whatsapp text-lg"></i> হোয়াটসঅ্যাপ সাপোর্ট
             </a>
         </div>
@@ -314,6 +340,32 @@
 
     <script>
         let userPhotoObj = null;
+
+        // Theme Switcher Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('themeIcon');
+            const text = document.getElementById('themeText');
+
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                icon.className = 'fa-solid fa-sun text-amber-500 text-lg';
+                text.innerText = 'লাইট মোড';
+                localStorage.setItem('theme', 'light');
+            } else {
+                html.classList.add('dark');
+                icon.className = 'fa-solid fa-moon text-amber-400 text-lg';
+                text.innerText = 'ডার্ক মোড';
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Initialize Theme from localStorage
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+            document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-500 text-lg';
+            document.getElementById('themeText').innerText = 'লাইট মোড';
+        }
 
         // Dynamic Pools for Posters (Funny Lines)
         const singlePosterTitles = [
@@ -403,7 +455,7 @@
         });
 
         // Number translation helper
-        function toBnNum(num) {
+        function toBanglaDigit(num) {
             const bn = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
             return num.toString().replace(/\d/g, d => bn[d]);
         }
@@ -421,14 +473,20 @@
         let globalData = {};
 
         function calculateAll() {
-            const name = document.getElementById('userName').value.trim() || 'ইমরান হোসেন';
+            const nameInput = document.getElementById('userName');
+            const name = (nameInput && nameInput.value.trim()) ? nameInput.value.trim() : 'ইমরান হোসেন';
             const dobVal = document.getElementById('dobInput').value;
             const status = document.getElementById('userStatus').value;
             const marriageVal = document.getElementById('marriageInput').value;
 
-            if(!dobVal) return;
+            if(!dobVal) {
+                showToast('দয়া করে আপনার জন্মতারিখ দিন!');
+                return;
+            }
 
-            const startDate = new Date(dobVal);
+            // Parse YYYY-MM-DD cleanly in local timezone
+            const [y1, m1, d1] = dobVal.split('-').map(Number);
+            const startDate = new Date(y1, m1 - 1, d1);
             let endDate = new Date();
 
             if(status === 'married') {
@@ -436,7 +494,8 @@
                     showToast('বিবাহের তারিখ লিখুন!');
                     return;
                 }
-                const marriageDate = new Date(marriageVal);
+                const [y2, m2, d2] = marriageVal.split('-').map(Number);
+                const marriageDate = new Date(y2, m2 - 1, d2);
                 if(marriageDate < startDate) {
                     showToast('বিবাহের তারিখ জন্মতারিখের পরে হতে হবে!');
                     return;
@@ -444,13 +503,19 @@
             }
 
             if(startDate > endDate) {
-                showToast('জন্মতারিখ ভুল দিয়েছেন!');
+                showToast('জন্মতারিখ ভবিষ্যতে দেওয়া যাবে না!');
                 return;
             }
 
             // Friday Counter
             let fridays = 0;
-            let temp = (status === 'married') ? new Date(marriageVal) : new Date(startDate);
+            let temp;
+            if (status === 'married') {
+                const [y2, m2, d2] = marriageVal.split('-').map(Number);
+                temp = new Date(y2, m2 - 1, d2);
+            } else {
+                temp = new Date(y1, m1 - 1, d1);
+            }
 
             while(temp <= endDate) {
                 if(temp.getDay() === 5) fridays++;
@@ -482,8 +547,22 @@
                 else if(fridays < 1500) badge = 'লেভেল ৩: কাজী অফিসের চিরস্থায়ী কাস্টমার';
                 else badge = 'লেভেল ৪: মোস্ট ওয়ান্টেড সিঙ্গেল!';
 
-                document.getElementById('foodBox1Label').innerHTML = '<i class="fa-solid fa-circle-xmark"></i> আজ বাস্তবতায় যা খেলেন (একাকী):';
-                document.getElementById('foodBox2Label').innerHTML = '<i class="fa-solid fa-circle-check"></i> শ্বশুরবাড়িতে যা আজ মিস হলো:';
+                const b1 = document.getElementById('foodBox1Label');
+                const b2 = document.getElementById('foodBox2Label');
+                if(b1) b1.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> আজ বাস্তবতায় যা খেলেন (একাকী):';
+                if(b2) b2.innerHTML = '<i class="fa-solid fa-circle-check"></i> শ্বশুরবাড়িতে যা আজ মিস হলো:';
+
+                const rTitle = document.getElementById('resMainTitle');
+                const lBiryani = document.getElementById('labelBiryani');
+                const lGoats = document.getElementById('labelGoats');
+                const iQuest = document.getElementById('iconQuestions');
+                const lQuest = document.getElementById('labelQuestions');
+
+                if(rTitle) rTitle.innerText = 'মোট একাকী শুক্রবার';
+                if(lBiryani) lBiryani.innerText = 'কাচ্চি বিরিয়ানি লস';
+                if(lGoats) lGoats.innerText = 'বেঁচে যাওয়া খাসি';
+                if(iQuest) iQuest.innerText = '🗣️';
+                if(lQuest) lQuest.innerText = '"বিয়ে কবে করবা?" শোনা কথা';
 
             } else { // Married
                 biryaniLoss = fridays * 2; 
@@ -492,8 +571,22 @@
 
                 badge = 'পরম সুখী অভিজ্ঞ বিবাহিত';
 
-                document.getElementById('foodBox1Label').innerHTML = '<i class="fa-solid fa-utensils text-emerald-400"></i> আজ শ্বশুরবাড়িতে/ঘরে যা পেটপুজো করলেন:';
-                document.getElementById('foodBox2Label').innerHTML = '<i class="fa-solid fa-gift text-amber-400"></i> বউয়ের থেকে আজ স্পেশাল যা পেলেন:';
+                const b1 = document.getElementById('foodBox1Label');
+                const b2 = document.getElementById('foodBox2Label');
+                if(b1) b1.innerHTML = '<i class="fa-solid fa-utensils text-emerald-500"></i> আজ শ্বশুরবাড়িতে/ঘরে যা পেটপুজো করলেন:';
+                if(b2) b2.innerHTML = '<i class="fa-solid fa-gift text-amber-500"></i> বউয়ের থেকে আজ স্পেশাল যা পেলেন:';
+
+                const rTitle = document.getElementById('resMainTitle');
+                const lBiryani = document.getElementById('labelBiryani');
+                const lGoats = document.getElementById('labelGoats');
+                const iQuest = document.getElementById('iconQuestions');
+                const lQuest = document.getElementById('labelQuestions');
+
+                if(rTitle) rTitle.innerText = 'বিয়ের পর বউয়ের সাথে পার করা শুক্রবার';
+                if(lBiryani) lBiryani.innerText = 'কাচ্চি/বিরিয়ানি উপভোগ (প্লেট)';
+                if(lGoats) lGoats.innerText = 'পেটে পুরেছেন খাসি/গরু';
+                if(iQuest) iQuest.innerText = '💖';
+                if(lQuest) lQuest.innerText = 'বউয়ের মিষ্টি কথা শোনার সংখ্যা';
             }
 
             // Save Global Data
@@ -513,15 +606,31 @@
 
             refreshFoodMenu(status);
 
+            // Render Metrics to DOM
+            const resFridays = document.getElementById('resFridays');
+            const resLevelBadge = document.getElementById('resLevelBadge');
+            const resBiryaniLoss = document.getElementById('resBiryaniLoss');
+            const resSavedGoats = document.getElementById('resSavedGoats');
+            const resQuestions = document.getElementById('resQuestions');
+
+            if(resFridays) resFridays.innerText = toBanglaDigit(fridays);
+            if(resLevelBadge) resLevelBadge.innerText = badge;
+            if(resBiryaniLoss) resBiryaniLoss.innerText = (status === 'single' ? '৳' : '') + toBanglaDigit(biryaniLoss.toLocaleString('en-IN')) + (status === 'married' ? ' প্লেট' : '');
+            if(resSavedGoats) resSavedGoats.innerText = toBanglaDigit(savedGoats) + ' টি';
+            if(resQuestions) resQuestions.innerText = toBanglaDigit(relativeQuestions) + ' বার';
+
+            // Show Result Section
+            const resArea = document.getElementById('resultArea');
+            if(resArea) {
+                resArea.classList.remove('hidden');
+                resArea.scrollIntoView({ behavior: 'smooth' });
+            }
+
             // Wait for fonts to load before drawing canvases
             document.fonts.ready.then(function() {
                 drawPosterCertificate();
                 drawPrescriptionCanvas();
             });
-
-            const resArea = document.getElementById('resultArea');
-            resArea.classList.remove('hidden');
-            resArea.scrollIntoView({ behavior: 'smooth' });
         }
 
         function refreshFoodMenu(status) {
@@ -533,13 +642,16 @@
                 item1 = singleBachelorFoodPool[Math.floor(Math.random() * singleBachelorFoodPool.length)];
                 item2 = singleMarriedFoodPool[Math.floor(Math.random() * singleMarriedFoodPool.length)];
             }
-            document.getElementById('bachelorMenu').innerText = item1;
-            document.getElementById('marriedMenu').innerText = item2;
+            const bMenu = document.getElementById('bachelorMenu');
+            const mMenu = document.getElementById('marriedMenu');
+            if(bMenu) bMenu.innerText = item1;
+            if(mMenu) mMenu.innerText = item2;
         }
 
         // DRAW PRESCRIPTION ON CANVAS FOR 100% RELIABLE HD DOWNLOAD
         function drawPrescriptionCanvas() {
             const canvas = document.getElementById('prescriptionCanvas');
+            if(!canvas) return;
             const ctx = canvas.getContext('2d');
 
             canvas.width = 750;
@@ -608,7 +720,7 @@
             ctx.fillText('👤 রোগীর নাম:', 65, 200);
             ctx.font = 'bold 20px "Hind Siliguri", sans-serif';
             ctx.fillStyle = '#0f172a';
-            ctx.fillText(globalData.name, 175, 200);
+            ctx.fillText(globalData.name || 'ইমরান হোসেন', 175, 200);
 
             ctx.fillStyle = '#1e293b';
             ctx.font = '17px "Hind Siliguri", sans-serif';
@@ -633,40 +745,38 @@
 
             // Draw Medicine Items
             let startY = 380;
-            globalData.chosenMeds.forEach((med, idx) => {
-                // Number & Name
-                ctx.fillStyle = '#1e3a8a';
-                ctx.font = 'bold 22px "Hind Siliguri", sans-serif';
-                ctx.fillText(`${toBnNum(idx + 1)}. ${med.name}`, 50, startY);
+            if(globalData.chosenMeds && globalData.chosenMeds.length) {
+                globalData.chosenMeds.forEach((med, idx) => {
+                    ctx.fillStyle = '#1e3a8a';
+                    ctx.font = 'bold 22px "Hind Siliguri", sans-serif';
+                    ctx.fillText(`${toBanglaDigit(idx + 1)}. ${med.name}`, 50, startY);
 
-                // Note
-                ctx.fillStyle = '#334155';
-                ctx.font = '16px "Hind Siliguri", sans-serif';
-                ctx.fillText(`(${med.note})`, 65, startY + 28);
+                    ctx.fillStyle = '#334155';
+                    ctx.font = '16px "Hind Siliguri", sans-serif';
+                    ctx.fillText(`(${med.note})`, 65, startY + 28);
 
-                // Dose Box
-                ctx.fillStyle = '#fef2f2';
-                roundRect(ctx, 65, startY + 40, 260, 32, 8, true, false);
-                ctx.strokeStyle = '#fecaca';
-                ctx.lineWidth = 1;
-                roundRect(ctx, 65, startY + 40, 260, 32, 8, false, true);
+                    ctx.fillStyle = '#fef2f2';
+                    roundRect(ctx, 65, startY + 40, 260, 32, 8, true, false);
+                    ctx.strokeStyle = '#fecaca';
+                    ctx.lineWidth = 1;
+                    roundRect(ctx, 65, startY + 40, 260, 32, 8, false, true);
 
-                ctx.fillStyle = '#dc2626';
-                ctx.font = 'bold 14px "Hind Siliguri", sans-serif';
-                ctx.fillText(med.dose, 80, startY + 61);
+                    ctx.fillStyle = '#dc2626';
+                    ctx.font = 'bold 14px "Hind Siliguri", sans-serif';
+                    ctx.fillText(med.dose, 80, startY + 61);
 
-                // Dotted Divider Line
-                ctx.strokeStyle = '#cbd5e1';
-                ctx.lineWidth = 1;
-                ctx.setLineDash([4, 4]);
-                ctx.beginPath();
-                ctx.moveTo(40, startY + 90);
-                ctx.lineTo(710, startY + 90);
-                ctx.stroke();
-                ctx.setLineDash([]);
+                    ctx.strokeStyle = '#cbd5e1';
+                    ctx.lineWidth = 1;
+                    ctx.setLineDash([4, 4]);
+                    ctx.beginPath();
+                    ctx.moveTo(40, startY + 90);
+                    ctx.lineTo(710, startY + 90);
+                    ctx.stroke();
+                    ctx.setLineDash([]);
 
-                startY += 115;
-            });
+                    startY += 115;
+                });
+            }
 
             // Doctor's Special Advice Box at Bottom
             ctx.fillStyle = '#0f172a';
@@ -675,7 +785,7 @@
 
             ctx.fillStyle = '#334155';
             ctx.font = 'italic 18px "Hind Siliguri", sans-serif';
-            ctx.fillText(`"${globalData.chosenAdvice}"`, 40, 870);
+            ctx.fillText(`"${globalData.chosenAdvice || 'সব সময় হাসিখুশি থাকুন।'}"`, 40, 870);
 
             ctx.strokeStyle = '#cbd5e1';
             ctx.lineWidth = 2;
@@ -700,17 +810,19 @@
 
         function downloadPrescriptionCanvas() {
             const canvas = document.getElementById('prescriptionCanvas');
+            if(!canvas) return;
             const link = document.createElement('a');
-            link.download = `${globalData.name}_Prescription.png`;
+            link.download = `${globalData.name || 'User'}_Prescription.png`;
             link.href = canvas.toDataURL('image/png', 1.0);
             link.click();
 
             showToast('মেডিকেল প্রেসক্রিপশন ডাউনলোড হয়েছে!');
         }
 
-        // DRAW POSTER CERTIFICATE ON CANVAS
+        // DRAW POSTER CERTIFICATE ON CANVAS 
         function drawPosterCertificate() {
             const canvas = document.getElementById('certificateCanvas');
+            if(!canvas) return;
             const ctx = canvas.getContext('2d');
 
             canvas.width = 750;
@@ -746,7 +858,7 @@
             // 3. Main Header Headlines
             ctx.fillStyle = '#e11d48';
             ctx.font = 'bold 36px "Tiro Bangla", serif';
-            ctx.fillText(globalData.randTitle, 375, 115);
+            ctx.fillText(globalData.randTitle || 'বউ ছাড়া কত শুক্রবার', 375, 115);
 
             // Curved Dotted Line under Headline
             ctx.strokeStyle = '#e11d48';
@@ -761,15 +873,15 @@
             ctx.fillStyle = '#1e293b';
             ctx.font = 'bold 22px "Hind Siliguri", sans-serif';
             if (isSingle) {
-                ctx.fillText(`${toBnNum(globalData.fridays)} জুমা একা, ৳${toBnNum(globalData.biryaniLoss.toLocaleString('en-IN'))} বিরিয়ানি লস!`, 375, 178);
+                ctx.fillText(`${toBanglaDigit(globalData.fridays)} জুমা একা, ৳${toBanglaDigit((globalData.biryaniLoss||0).toLocaleString('en-IN'))} বিরিয়ানি লস!`, 375, 178);
             } else {
-                ctx.fillText(`${toBnNum(globalData.fridays)} জুমা বউয়ের সাথে, ${toBnNum(globalData.biryaniLoss)} প্লেট কাচ্চি সাবাড়!`, 375, 178);
+                ctx.fillText(`${toBanglaDigit(globalData.fridays)} জুমা বউয়ের সাথে, ${toBanglaDigit(globalData.biryaniLoss)} প্লেট কাচ্চি সাবাড়!`, 375, 178);
             }
 
             // Highlighted Giant Text
             ctx.fillStyle = '#e11d48';
             ctx.font = 'bold 38px "Tiro Bangla", serif';
-            ctx.fillText(globalData.randHigh, 375, 235);
+            ctx.fillText(globalData.randHigh || 'বউ এবং বউ...', 375, 235);
 
             // 4. Center Main Floating Profile Card
             const cardX = 190;
@@ -838,7 +950,7 @@
             ctx.fillStyle = '#1e293b';
             ctx.textAlign = 'left';
             ctx.font = 'bold 22px "Hind Siliguri", sans-serif';
-            ctx.fillText(globalData.name, cardX + 25, cardY + 410);
+            ctx.fillText(globalData.name || 'ইমরান হোসেন', cardX + 25, cardY + 410);
 
             ctx.fillStyle = '#e11d48';
             ctx.font = 'bold 15px "Hind Siliguri", sans-serif';
@@ -862,7 +974,7 @@
                 ctx.fillText('এই হিসাবের ভেতরে কি কোন কিছু বাদ আছে?', 375, 805);
                 ctx.fillStyle = '#334155';
                 ctx.font = 'bold 18px "Hind Siliguri", sans-serif';
-                ctx.fillText(`"বিয়ে কবে করবা?" শুনেছেন: ${toBnNum(globalData.relativeQuestions)} বার`, 375, 835);
+                ctx.fillText(`"বিয়ে কবে করবা?" শুনেছেন: ${toBanglaDigit(globalData.relativeQuestions || 0)} বার`, 375, 835);
                 ctx.fillStyle = '#64748b';
                 ctx.font = '15px "Hind Siliguri", sans-serif';
                 ctx.fillText('বাদ থাকলে কাজী অফিসে জানাবেন।', 375, 863);
@@ -870,7 +982,7 @@
                 ctx.fillText('সংসারের এই পরম সুখের মাঝে কি কোন বাদ আছে?', 375, 805);
                 ctx.fillStyle = '#334155';
                 ctx.font = 'bold 18px "Hind Siliguri", sans-serif';
-                ctx.fillText(`বউয়ের মিষ্টি কথা শুনেছেন: ${toBnNum(globalData.relativeQuestions)} বার`, 375, 835);
+                ctx.fillText(`বউয়ের মিষ্টি কথা শুনেছেন: ${toBanglaDigit(globalData.relativeQuestions || 0)} বার`, 375, 835);
                 ctx.fillStyle = '#64748b';
                 ctx.font = '15px "Hind Siliguri", sans-serif';
                 ctx.fillText('বাদ থাকলে বউকে মন খুলে জানাবেন।', 375, 863);
@@ -916,8 +1028,9 @@
 
         function downloadCertificate() {
             const canvas = document.getElementById('certificateCanvas');
+            if(!canvas) return;
             const link = document.createElement('a');
-            link.download = `${globalData.name}_Friday_Poster.png`;
+            link.download = `${globalData.name || 'User'}_Friday_Poster.png`;
             link.href = canvas.toDataURL('image/png', 1.0);
             link.click();
 
@@ -925,13 +1038,13 @@
         }
 
         function copyShareText() {
-            if(!globalData.fridays) return;
+            if(!globalData.fridays && globalData.fridays !== 0) return;
 
             let shareText = '';
             if (globalData.status === 'married') {
-                shareText = `💍 নাম: ${globalData.name}\nবিয়ের পর বউয়ের সাথে মোট ${toBnNum(globalData.fridays)} টি শুক্রবার পার করেছি!\n🍗 কাচ্চি বিরিয়ানি উপভোগ: ${toBnNum(globalData.biryaniLoss)} প্লেট\n🥩 পেটে পুরেছি খাসি/গরু: ${toBnNum(globalData.savedGoats)} টি\n🏆 স্ট্যাটাস: ${globalData.badge}\n\nআপনার পোস্টার তৈরি করুন এখনই!`;
+                shareText = `💍 নাম: ${globalData.name}\nবিয়ের পর বউয়ের সাথে মোট ${toBanglaDigit(globalData.fridays)} টি শুক্রবার পার করেছি!\n🍗 কাচ্চি বিরিয়ানি উপভোগ: ${toBanglaDigit(globalData.biryaniLoss)} প্লেট\n🥩 পেটে পুরেছি খাসি/গরু: ${toBanglaDigit(globalData.savedGoats)} টি\n🏆 স্ট্যাটাস: ${globalData.badge}\n\nআপনার পোস্টার তৈরি করুন এখনই!`;
             } else {
-                shareText = `🕌 নাম: ${globalData.name}\nবউ ছাড়া মোট ${toBnNum(globalData.fridays)} টি শুক্রবার একা পার করেছি!\n🍗 পকেটের বিরিয়ানি লস: ৳${toBnNum(globalData.biryaniLoss.toLocaleString('en-IN'))}\n🐐 আমার জন্য বেঁচে গেছে ${toBnNum(globalData.savedGoats)} টি খাসি!\n🏆 স্ট্যাটাস: ${globalData.badge}\n\nআপনার ফটো পোস্টারসহ ব্যাচেলর জুমার হিসাব বের করুন এখনই!`;
+                shareText = `🕌 নাম: ${globalData.name}\nবউ ছাড়া মোট ${toBanglaDigit(globalData.fridays)} টি শুক্রবার একা পার করেছি!\n🍗 পকেটের বিরিয়ানি লস: ৳${toBanglaDigit((globalData.biryaniLoss||0).toLocaleString('en-IN'))}\n🐐 আমার জন্য বেঁচে গেছে ${toBanglaDigit(globalData.savedGoats)} টি খাসি!\n🏆 স্ট্যাটাস: ${globalData.badge}\n\nআপনার ফটো পোস্টারসহ ব্যাচেলর জুমার হিসাব বের করুন এখনই!`;
             }
 
             const temp = document.createElement('textarea');
@@ -946,6 +1059,7 @@
 
         function showToast(msg) {
             const toast = document.getElementById('toast');
+            if(!toast) return;
             document.getElementById('toastText').innerText = msg;
             toast.classList.remove('opacity-0', 'pointer-events-none');
             setTimeout(() => {
