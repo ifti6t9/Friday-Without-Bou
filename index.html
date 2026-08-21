@@ -1,395 +1,860 @@
-<!doctype html>
+```html
+<!DOCTYPE html>
 <html lang="bn">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#121824">
-<title>বউ ছাড়া কত শুক্রবার?</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>বউ ছাড়া কত শুক্রবার | আলটিমেট ব্যাচেলর ও ম্যারিড হাব</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Reenie+Beanie&family=Tiro+Bangla&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#f43f5e',
+                            dark: '#0b0f17',
+                            card: '#161e2e',
+                            accent: '#38bdf8',
+                            gold: '#fbbf24'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Hind Siliguri', 'sans-serif'],
+                        serif: ['Tiro Bangla', 'serif'],
+                        rx: ['Reenie Beanie', 'cursive']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #0b0f17;
+            background-image: 
+                radial-gradient(at 15% 15%, rgba(244, 63, 94, 0.15) 0px, transparent 50%),
+                radial-gradient(at 85% 85%, rgba(56, 189, 248, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        .glass-panel {
+            background: rgba(22, 30, 46, 0.75);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
 
-<style>
-*{box-sizing:border-box}
-body{
-    margin:0;
-    min-height:100vh;
-    font-family: 'Hind Siliguri', system-ui, -apple-system, sans-serif;
-    background: radial-gradient(circle at top, #1a233a 0%, #0b0f19 100%);
-    color:#f3f4f6;
-    padding:20px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-.wrap{width:100%;max-width:560px;margin:auto}
-.card{
-    background:rgba(20, 27, 45, 0.9);
-    border:1px solid rgba(245, 158, 11, 0.25);
-    border-radius:32px;
-    padding:34px;
-    box-shadow:0 30px 70px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-    backdrop-filter: blur(20px);
-}
-.hero{text-align:center}
-.hero .em{
-    font-size:62px;
-    margin-bottom:12px;
-    display:inline-block;
-    animation: floatAnim 3s ease-in-out infinite;
-    filter: drop-shadow(0 12px 20px rgba(245, 158, 11, 0.4));
-}
-@keyframes floatAnim {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-8px); }
-}
+        .radar-sweep {
+            animation: sweep 4s linear infinite;
+        }
 
-/* Highly highlighted and bold main title */
-h1{
-    font-size: 44px;
-    margin: 10px 0;
-    font-weight: 900;
-    color: #ffffff;
-    text-shadow: 0 4px 25px rgba(245, 158, 11, 0.5);
-    letter-spacing: -0.5px;
-}
-.muted{color:#9ca3af;line-height:1.6;font-size:15px;font-weight:400;}
+        @keyframes sweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
 
-label{display:block;font-weight:600;margin:22px 0 8px;color:#f3f4f6;font-size:15px;letter-spacing:0.3px;}
-input[type="text"], input[type="date"]{
-    width:100%;
-    padding:15px 18px;
-    border:1.5px solid rgba(255, 255, 255, 0.12);
-    border-radius:18px;
-    font-size:16px;
-    background:rgba(11, 15, 25, 0.85);
-    font-family: 'Hind Siliguri', sans-serif;
-    color:#ffffff;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    outline:none;
-}
-input[type="text"]:focus, input[type="date"]:focus{
-    border-color:#f59e0b;
-    box-shadow:0 0 0 4px rgba(245, 158, 11, 0.22);
-    background:rgba(11, 15, 25, 1);
-}
+        .pulse-slow {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
 
-input[type="file"]{
-    width:100%;
-    padding:12px;
-    border:1.5px dashed rgba(245, 158, 11, 0.35);
-    border-radius:18px;
-    font-size:14px;
-    background:rgba(11, 15, 25, 0.5);
-    cursor:pointer;
-    font-family: 'Hind Siliguri', sans-serif;
-    color:#cbd5e1;
-    transition: all 0.25s ease;
-}
-input[type="file"]:hover{
-    border-color:#f59e0b;
-    background:rgba(245, 158, 11, 0.08);
-}
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
 
-button,.fb{
-    width:100%;
-    border:0;
-    border-radius:18px;
-    padding:16px;
-    margin-top:20px;
-    font-weight:700;
-    font-size:16px;
-    cursor:pointer;
-    text-decoration:none;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    font-family: 'Hind Siliguri', sans-serif;
-    transition: all 0.3s ease;
-}
-.primary{
-    background:linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-    color:#0b0f19;
-    box-shadow:0 12px 28px rgba(245, 158, 11, 0.4);
-}
-.primary:hover{
-    transform: translateY(-2px);
-    box-shadow:0 16px 35px rgba(245, 158, 11, 0.55);
-}
-
-.secondary{
-    background:rgba(255, 255, 255, 0.08);
-    color:#f3f4f6;
-    border:1px solid rgba(255, 255, 255, 0.15);
-}
-.secondary:hover{
-    background:rgba(255, 255, 255, 0.16);
-    transform: translateY(-1px);
-}
-
-.fb{
-    background:linear-gradient(135deg,#2563eb,#1d4ed8);
-    color:#fff;
-    box-shadow:0 12px 28px rgba(37, 99, 235, 0.4);
-}
-.fb:hover{
-    transform: translateY(-2px);
-    box-shadow:0 16px 35px rgba(37, 99, 235, 0.55);
-}
-
-.result{
-    display:none;
-    text-align:center;
-    background:linear-gradient(135deg, rgba(245, 158, 11, 0.14) 0%, rgba(20, 27, 45, 0.95) 100%);
-    border:1px solid rgba(245, 158, 11, 0.35);
-    border-radius:24px;
-    padding:26px;
-    margin-top:26px;
-    animation: fadeIn 0.4s ease;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.num{font-size:58px;font-weight:800;color:#f59e0b;line-height:1.2;text-shadow:0 6px 18px rgba(245,158,11,0.35);}
-.certWrap{display:none;margin-top:28px}
-.certWrap h2{text-align:center;color:#ffffff;font-size:23px;margin-bottom:16px;}
-canvas{width:100%;height:auto;border-radius:22px;box-shadow:0 20px 45px rgba(0,0,0,0.6);background:#fff}
-
-.dev{margin-top:28px;border-top:1px solid rgba(255, 255, 255, 0.12);padding-top:26px;text-align:center}
-.dev h3{margin:0 0 6px;font-size:18px;color:#ffffff;}
-.dev p{margin:0 0 14px;color:#9ca3af;font-size:14px}
-.note{text-align:center;font-size:13.5px;color:#9ca3af;margin-top:20px;font-weight:500;}
-
-/* Custom Professional Modal Styles */
-.modal-overlay { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.75); backdrop-filter: blur(8px); display:none; align-items:center; justify-content:center; z-index:1000; padding: 20px;}
-.modal-box { background:#141b2d; border: 1.5px solid rgba(245, 158, 11, 0.4); padding:34px; border-radius:26px; max-width:100%; width:380px; text-align:center; box-shadow:0 25px 60px rgba(0,0,0,0.7); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.modal-msg { font-size: 16.5px; color: #f3f4f6; margin-bottom: 24px; font-weight: 500; line-height: 1.6;}
-.modal-btn { background:linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color:#0b0f19; border:none; padding:14px 20px; border-radius:16px; cursor:pointer; font-weight:700; width: 100%; font-family:'Hind Siliguri', sans-serif; font-size:15.5px; box-shadow:0 8px 22px rgba(245,158,11,0.35); transition: transform 0.2s;}
-.modal-btn:hover { transform: translateY(-1px); }
-</style>
+        /* Medical Prescription Style Paper */
+        .rx-paper {
+            background: #fffdfa;
+            color: #1e293b;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            background-image: radial-gradient(#e2e8f0 1px, transparent 0);
+            background-size: 20px 20px;
+        }
+    </style>
 </head>
-<body>
+<body class="text-slate-100 min-h-screen font-sans flex flex-col items-center justify-start p-4 md:p-8">
 
-<div class="wrap">
- <div class="card">
-  <div class="hero">
-   <div class="em">💍👰‍♀</div>
-   <h1>বউ ছাড়া কত শুক্রবার?</h1>
-   <div class="muted">বউ আসার আগের কিংবা বর্তমান স্বাধীন জীবনের হিসাব করুন এক ক্লিকে এবং প্রিমিয়াম রয়েল সার্টিফিকেট তৈরি করুন!</div>
-  </div>
+    <!-- Header Section -->
+    <header class="max-w-2xl w-full text-center my-6">
+        <div class="inline-block p-4 rounded-full bg-rose-500/10 border border-rose-500/20 mb-3 animate-bounce">
+            <span class="text-5xl">🕌</span>
+        </div>
+        <h1 class="text-3xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-rose-500 via-sky-400 to-amber-400 mb-2">
+            বউ ছাড়া কত শুক্রবার?
+        </h1>
+        <p class="text-slate-400 text-base md:text-lg">
+            তথ্য দিন, ছবি আপলোড করুন আর সাথে সাথেই পেয়ে যান আপনার অফিশিয়াল জুমার সনদপত্র!
+        </p>
+    </header>
 
-  <label>👤 আপনার নাম</label>
-  <input id="name" type="text" maxlength="35" placeholder="যেমন: ইমরান হোসেন">
+    <!-- Main Container -->
+    <main class="max-w-2xl w-full space-y-6">
 
-  <label>📅 জন্মতারিখ</label>
-  <input id="dob" type="date">
+        <!-- Input Glass Card -->
+        <div class="glass-panel rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-rose-500 via-sky-400 to-amber-400"></div>
 
-  <label>📸 আপনার ছবি (ঐচ্ছিক)</label>
-  <input id="photo" type="file" accept="image/*">
+            <form id="calculatorForm" onsubmit="event.preventDefault(); calculateAll();" class="space-y-5">
+                
+                <!-- ১. নাম ইনপুট -->
+                <div>
+                    <label class="block text-slate-300 font-semibold mb-2">
+                        <i class="fa-solid fa-user text-rose-400 mr-2"></i>আপনার নাম:
+                    </label>
+                    <input type="text" id="userName" placeholder="যেমন: ইমরান হোসেন" required
+                        class="w-full bg-slate-900/80 border border-slate-700 focus:border-rose-500 rounded-xl px-4 py-3 text-slate-100 outline-none transition">
+                </div>
 
-  <button class="primary" id="make">
-   <span>⚡ হিসাব করে সার্টিফিকেট বানান</span>
-  </button>
+                <!-- ২. জন্মতারিখ ইনপুট -->
+                <div>
+                    <label class="block text-slate-300 font-semibold mb-2">
+                        <i class="fa-solid fa-cake-candles text-sky-400 mr-2"></i>জন্মতারিখ:
+                    </label>
+                    <input type="date" id="dobInput" required
+                        class="w-full bg-slate-900/80 border border-slate-700 focus:border-rose-500 rounded-xl px-4 py-3 text-slate-100 outline-none transition">
+                </div>
 
-  <div class="result" id="result">
-   <div class="num" id="count">০</div>
-   <b style="font-size: 19px; color: #f59e0b;">টি শুক্রবার পরম স্বাধীনতায় পার হয়েছে! 🚀😎</b>
-   <div class="muted" id="details" style="margin-top: 10px;"></div>
-  </div>
+                <!-- ৩. ছবি আপলোড অপশন (ছোট ও কম্প্যাক্ট করা হয়েছে) -->
+                <div class="bg-slate-900/60 p-3 rounded-2xl border border-rose-500/30">
+                    <label class="block text-slate-200 font-semibold text-sm mb-2 text-left">
+                        <i class="fa-solid fa-camera-retro text-rose-400 mr-1.5"></i>সনদপত্রের ছবি (ঐচ্ছিক):
+                    </label>
+                    <div class="flex items-center gap-3">
+                        <div id="photoPreviewContainer" class="w-12 h-14 rounded-lg bg-slate-800 border border-dashed border-rose-400/50 overflow-hidden flex items-center justify-center flex-shrink-0 relative shadow-inner">
+                            <img id="photoPreview" src="" class="w-full h-full object-cover hidden" alt="প্রিভিউ">
+                            <div id="photoPlaceholder" class="text-center p-1">
+                                <i class="fa-solid fa-cloud-arrow-up text-rose-400 text-lg block"></i>
+                            </div>
+                        </div>
+                        <input type="file" id="userPhoto" accept="image/*" class="block w-full text-xs text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-rose-500/20 file:text-rose-300 hover:file:bg-rose-500/30 cursor-pointer">
+                    </div>
+                </div>
 
-  <div class="certWrap" id="certWrap">
-   <h2>🏆 আপনার প্রিমিয়াম রয়েল সার্টিফিকেট</h2>
-   <canvas id="cert" width="1200" height="1500"></canvas>
-   <button class="secondary" id="download"><span>📥 সার্টিফিকেট ডাউনলোড করুন (PNG)</span></button>
-   <button class="secondary" id="share"><span>📤 সার্টিফিকেট শেয়ার করুন</span></button>
-  </div>
+                <!-- ৪. বর্তমান স্ট্যাটাস -->
+                <div>
+                    <label class="block text-slate-300 font-semibold mb-2">
+                        <i class="fa-solid fa-heart-crack text-amber-400 mr-2"></i>বর্তমান স্ট্যাটাস:
+                    </label>
+                    <select id="userStatus" onchange="toggleMarriageDate()"
+                        class="w-full bg-slate-900/80 border border-slate-700 focus:border-rose-500 rounded-xl px-4 py-3 text-slate-100 outline-none transition">
+                        <option value="single">পাকা সিঙ্গেল (এখনও একা)</option>
+                        <option value="married">বিবাহিত (সুখী বিবাহিত)</option>
+                    </select>
+                </div>
 
-  <div class="dev">
-   <h3>👨‍💻 ডেভেলপার ইনফো</h3>
-   <p>ওয়েবসাইট ডেভেলপার — ইমরান</p>
-   <a class="fb" href="https://www.facebook.com/share/1BgxkcRz3S/" target="_blank" rel="noopener">
-    <span>🌐 ফেসবুক প্রোফাইলে যোগাযোগ করুন</span>
-   </a>
-  </div>
-  <div class="note">✨ ১০০% বিনোদন এবং মজার উদ্দেশ্যে তৈরি করা হয়েছে ✨</div>
- </div>
-</div>
+                <!-- ৫. বিবাহের তারিখ (বিবাহিতদের জন্য) -->
+                <div id="marriageDateContainer" class="hidden">
+                    <label class="block text-slate-300 font-semibold mb-2">
+                        <i class="fa-solid fa-ring text-amber-400 mr-2"></i>বিবাহের তারিখ:
+                    </label>
+                    <input type="date" id="marriageInput"
+                        class="w-full bg-slate-900/80 border border-slate-700 focus:border-rose-500 rounded-xl px-4 py-3 text-slate-100 outline-none transition">
+                </div>
 
-<!-- Custom Message Modal -->
-<div class="modal-overlay" id="modal">
-    <div class="modal-box">
-        <div class="modal-msg" id="modalText"></div>
-        <button class="modal-btn" onclick="document.getElementById('modal').style.display='none'">বুঝেছি 👍</button>
+                <!-- ৬. সাবমিট বাটন -->
+                <button type="submit"
+                    class="w-full bg-gradient-to-r from-rose-500 via-rose-600 to-amber-500 hover:from-rose-600 hover:to-amber-600 text-white font-extrabold py-4 rounded-xl shadow-lg shadow-rose-500/25 transition transform active:scale-95 flex items-center justify-center gap-2 text-lg">
+                    <i class="fa-solid fa-certificate"></i> সনদপত্র তৈরি করুন
+                </button>
+            </form>
+        </div>
+
+        <!-- Result Section (Hidden Initially) -->
+        <div id="resultArea" class="hidden space-y-6">
+
+            <!-- Official Certificate Display Area -->
+            <div class="glass-panel rounded-3xl p-4 md:p-6 text-center border-2 border-amber-500/40 bg-slate-950/80 space-y-4">
+                <div class="flex items-center justify-center gap-2 text-amber-400 font-bold text-lg">
+                    <i class="fa-solid fa-award text-2xl"></i> আপনার অফিশিয়াল ডিজিটাল সনদপত্র
+                </div>
+                
+                <!-- The Live Canvas Certificate -->
+                <div class="overflow-x-auto flex justify-center py-2">
+                    <canvas id="certificateCanvas" class="max-w-full rounded-2xl shadow-2xl border-4 border-amber-500/30"></canvas>
+                </div>
+
+                <div class="flex flex-wrap gap-3 justify-center pt-2">
+                    <button onclick="downloadCertificate()" 
+                        class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-extrabold px-6 py-3.5 rounded-xl text-base flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform active:scale-95">
+                        <i class="fa-solid fa-file-arrow-down text-xl"></i> এইচডি সনদপত্র ডাউনলোড করুন
+                    </button>
+
+                    <button onclick="copyShareText()" 
+                        class="bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold px-5 py-3.5 rounded-xl text-sm flex items-center gap-2 border border-slate-700 transition">
+                        <i class="fa-solid fa-copy"></i> স্ট্যাটাস কপি করুন
+                    </button>
+                </div>
+            </div>
+
+            <!-- Primary Metrics Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
+                <div class="glass-panel col-span-2 md:col-span-3 rounded-2xl p-6 text-center border-rose-500/30 bg-rose-500/5">
+                    <span id="resMainTitle" class="text-xs font-semibold tracking-wider text-rose-400 uppercase">মোট একাকী শুক্রবার</span>
+                    <div id="resFridays" class="text-4xl md:text-6xl font-extrabold text-rose-500 my-1">০</div>
+                    <p id="resLevelBadge" class="inline-block bg-sky-500/20 text-sky-300 border border-sky-500/30 px-4 py-1 rounded-full text-sm font-semibold mt-1">
+                        লেভেল: লোডিং...
+                    </p>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-4 text-center">
+                    <div class="text-2xl mb-1">🍗</div>
+                    <div id="resBiryaniLoss" class="text-xl md:text-2xl font-bold text-amber-400">৳০</div>
+                    <div id="labelBiryani" class="text-xs text-slate-400 mt-1">কাচ্চি বিরিয়ানি লস</div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-4 text-center">
+                    <div class="text-2xl mb-1">🐐</div>
+                    <div id="resSavedGoats" class="text-xl md:text-2xl font-bold text-emerald-400">০ টি</div>
+                    <div id="labelGoats" class="text-xs text-slate-400 mt-1">বেঁচে যাওয়া খাসি</div>
+                </div>
+
+                <div class="glass-panel col-span-2 md:col-span-1 rounded-2xl p-4 text-center">
+                    <div class="text-2xl mb-1" id="iconQuestions">🗣️</div>
+                    <div id="resQuestions" class="text-xl md:text-2xl font-bold text-purple-400">০ বার</div>
+                    <div id="labelQuestions" class="text-xs text-slate-400 mt-1">"বিয়ে কবে করবা?" শোনা কথা</div>
+                </div>
+            </div>
+
+            <!-- Dynamic Friday Food Menu Comparison Card -->
+            <div class="glass-panel rounded-2xl p-5 border-slate-700">
+                <div class="mb-3">
+                    <h3 class="text-lg font-bold text-slate-200 flex items-center gap-2">
+                        <i class="fa-solid fa-utensils text-rose-400"></i> শুক্রবারে আপনার বাস্তব খাদ্যতালিকা
+                    </h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <div class="bg-slate-900/80 p-4 rounded-xl border border-rose-500/20">
+                        <span id="foodBox1Label" class="text-rose-400 font-bold block mb-1 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-xmark"></i> আজ বাস্তবতায় যা খেলেন:
+                        </span>
+                        <p id="bachelorMenu" class="text-slate-200 font-semibold text-base mt-1">লোডিং...</p>
+                    </div>
+                    <div class="bg-slate-900/80 p-4 rounded-xl border border-emerald-500/20">
+                        <span id="foodBox2Label" class="text-emerald-400 font-bold block mb-1 flex items-center gap-1">
+                            <i class="fa-solid fa-circle-check"></i> শ্বশুরবাড়িতে যা আজ মিস হলো:
+                        </span>
+                        <p id="marriedMenu" class="text-slate-200 font-semibold text-base mt-1">লোডিং...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dynamic Doctor's Prescription Generator Card -->
+            <div class="rx-paper rounded-2xl p-6 border-2 border-slate-300 relative overflow-hidden">
+                <!-- Prescription Header -->
+                <div class="flex justify-between items-start border-b-2 border-slate-800 pb-3 mb-4">
+                    <div>
+                        <h4 class="font-extrabold text-slate-900 text-lg md:text-xl flex items-center gap-2">
+                            <i class="fa-solid fa-user-doctor text-blue-600"></i> ডা. কাজী মো: ইমরান
+                        </h4>
+                        <p class="text-xs text-slate-600 font-medium">চিফ স্পেশালিস্ট (একাকীত্ব ও দম্পতি সুখ নিরাময় বিভাগ)</p>
+                        <p class="text-xs text-slate-500">বিএমডিসি রেজি নং: ৭৭০৭-বিবাহ</p>
+                    </div>
+                    <div class="text-right">
+                        <span class="text-3xl font-black text-blue-700 italic font-mono">Rx</span>
+                        <p class="text-xs text-slate-500 mt-1" id="rxDate">তারিখ: আজকের জুমার দিন</p>
+                    </div>
+                </div>
+
+                <!-- Patient Info Header -->
+                <div class="bg-slate-100 p-2.5 rounded-lg border border-slate-300 text-xs text-slate-700 mb-4 flex justify-between flex-wrap gap-2">
+                    <div><strong>রোগীর নাম:</strong> <span id="rxPatientName">অজ্ঞাত</span></div>
+                    <div><strong>রোগ:</strong> <span id="rxDisease">ক্রনিক শুক্রবার একাকীত্ব সিন্ড্রোম</span></div>
+                    <div><strong>অবস্থা:</strong> <span id="rxCondition">জটিল সিঙ্গেল</span></div>
+                </div>
+
+                <!-- Dynamic Rx Medicines -->
+                <div class="mb-4">
+                    <div class="mb-2">
+                        <h5 class="text-xs font-bold uppercase text-slate-500 tracking-wider">ওষুধের তালিকা (প্রতি সেবনে কার্যকারী)</h5>
+                    </div>
+                    <ul id="rxMedsList" class="space-y-2.5 text-sm text-slate-800 font-medium">
+                        <!-- Dynamic Prescriptions populate here -->
+                    </ul>
+                </div>
+
+                <!-- Doctor's Advice -->
+                <div class="border-t border-slate-300 pt-3 text-xs text-slate-600">
+                    <p class="font-bold text-slate-800 mb-1">🩺 ডাক্তারের বিশেষ পরামর্শ:</p>
+                    <p id="rxDoctorAdvice" class="italic">প্রেসক্রিপশন অনুযায়ী দ্রুত বরযাত্রীর আয়োজন করুন।</p>
+                </div>
+            </div>
+
+            <!-- Fake Kazi Radar Widget -->
+            <div class="glass-panel rounded-2xl p-5 relative overflow-hidden flex items-center gap-4">
+                <div class="relative w-16 h-16 rounded-full border-2 border-emerald-500/40 bg-emerald-950/30 flex items-center justify-center flex-shrink-0">
+                    <div class="absolute inset-0 rounded-full border border-emerald-500/20 pulse-slow"></div>
+                    <div class="w-full h-0.5 bg-emerald-500/60 absolute radar-sweep origin-center"></div>
+                    <i class="fa-solid fa-mosque text-emerald-400 text-xl"></i>
+                </div>
+                <div>
+                    <h4 id="radarTitle" class="font-bold text-emerald-400 text-base">কাজী অফিস জিপিএস রাডার</h4>
+                    <p id="radarText" class="text-xs text-slate-300 mt-0.5">
+                        স্ক্যানিং চলছে... নিকটস্থ কাজী অফিস মাত্র ২০০ মিটার দূরে অপেক্ষা করছে!
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Developer Footer Section -->
+    <footer class="max-w-2xl w-full text-center mt-12 mb-6 pt-6 border-t border-slate-800/80">
+        <p class="text-xs font-semibold text-slate-400 mb-3 tracking-wider uppercase">
+            <i class="fa-solid fa-code text-rose-500 mr-1"></i> ডেভেলপারদের সাথে যোগাযোগ করুন
+        </p>
+        <div class="flex flex-wrap justify-center gap-3">
+            <!-- Facebook Button -->
+            <a href="https://www.facebook.com/share/1EpA2LHC4z/" target="_blank" rel="noopener noreferrer" 
+                class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 border border-blue-500/40 px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition transform hover:-translate-y-0.5">
+                <i class="fa-brands fa-facebook text-lg"></i> ফেসবুক প্রোফাইল
+            </a>
+
+            <!-- WhatsApp Button -->
+            <a href="https://wa.me/8801522138677" target="_blank" rel="noopener noreferrer" 
+                class="bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-400 border border-emerald-500/40 px-4 py-2 rounded-xl text-sm font-bold flex items-center gap-2 transition transform hover:-translate-y-0.5">
+                <i class="fa-brands fa-whatsapp text-lg"></i> হোয়াটসঅ্যাপ সাপোর্ট
+            </a>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 left-1/2 -translate-x-1/2 bg-emerald-500 text-slate-950 font-bold px-6 py-3 rounded-full shadow-2xl transition-all duration-300 opacity-0 pointer-events-none flex items-center gap-2 z-50">
+        <i class="fa-solid fa-circle-check"></i> <span id="toastText">কপি হয়েছে!</span>
     </div>
-</div>
 
-<script>
-const $=id=>document.getElementById(id);
-$('dob').max=new Date().toISOString().split('T')[0];
-let imageObj=null;
+    <script>
+        let userPhotoObj = null;
 
-function showMsg(msg) {
-    $('modalText').textContent = msg;
-    $('modal').style.display = 'flex';
-}
+        // Dynamic Pools for Single Medicine Rx
+        const singleMedicinePool = [
+            { name: "Tab. Kazi-300mg", dose: "১ + ০ + ১ (খাবার পর প্রতিদিন)", note: "বিবাহ চুক্তি সম্পন্ন না হওয়া পর্যন্ত চলবে" },
+            { name: "Syr. Gaye-Halud-Ultra", dose: "২ চামচ করে দিনে ৩ বার", note: "গায়ে হলুদের আমেজ অনুভব করতে সেব্য" },
+            { name: "Cap. Bou-Dol 500mg", dose: "১টি করে জুমার পর পরই", note: "একাকীত্ব ভাব নিরাময়ে কাজ করে" },
+            { name: "Tab. Shoshurbari-Forte 650mg", dose: "জরুরি জুমার দাওয়াত না পেলে ১টি", note: "খাসির মাংসের অভাব পূরণ করে" },
+            { name: "Inj. Biye-Forte 1000iu", dose: "সপ্তাহে ১ বার (কাজী অফিসে বসে)", note: "দ্রুত বিবাহ কার্য শুরু করার পুশ" },
+            { name: "Cap. Mohor-Capsule", dose: "১টি করে রাতে ঘুমানোর আগে", note: "মানসিক শান্তি ও ঘটক আকর্ষণে দারুণ" },
+            { name: "Tab. Ukil-Baap 200mg", dose: "১টি করে জুমার খুতবার আগে", note: "সঠিক দিকনির্দেশনা পেতে সহায়ক" },
+            { name: "Syr. Biryani-Tripti 100ml", dose: "শ্বশুরবাড়ির দাওয়াত না পাওয়া পর্যন্ত", note: "পকেটের খাসির লস কমাবে" }
+        ];
 
-$('photo').addEventListener('change',e=>{
- const f=e.target.files[0]; if(!f){imageObj=null;return}
- const r=new FileReader(); r.onload=()=>{const im=new Image();im.onload=()=>imageObj=im;im.src=r.result};r.readAsDataURL(f);
-});
+        const singleDoctorAdvices = [
+            "শুক্রবারে একা একা ঘরে বসে বিরিয়ানির স্বপ্ন দেখা সম্পূর্ণ নিষেধ। অতি দ্রুত অভিভাবককে ঘটক পাঠাতে বলুন।",
+            "বিবাহিত বন্ধুদের সুখী দাম্পত্য দেখলে হিংসা না করে অবিলম্বে কাজী অফিসের রাস্তা ম্যাপে সেভ করুন।",
+            "প্রতি শুক্রবারে আম্মুর দেখা পাত্রী না চেনার ভান বন্ধ করুন। দ্রুত প্রস্তাব গ্রহণ করাই রোগ মুক্তির উপায়।",
+            "শ্বশুরবাড়ির শাহী খাওয়ার লোভ থাকলে আজই বায়োডাটা আপডেট করে সোশ্যাল মিডিয়ায় চড়িয়ে দিন।"
+        ];
 
-function fridayCount(s){
- const start=new Date(s+'T00:00:00'), end=new Date();
- if(isNaN(start)||start>end)return null;
- const first=new Date(start); first.setDate(first.getDate()+((5-first.getDay()+7)%7));
- if(first>end)return 0;
- return Math.floor((end-first)/(7*86400000))+1;
-}
-function bn(n){return Number(n).toLocaleString('bn-BD')}
+        // Dynamic Pools for Married Medicine Rx
+        const marriedMedicinePool = [
+            { name: "Tab. Bou-Preme-500mg", dose: "১ + ০ + ১ (প্রতিদিন খাবার পর)", note: "সংসারে শান্তি ও পিস বজায় রাখতে সেব্য" },
+            { name: "Syr. Shoshurbari-Khasi 200ml", dose: "২ চামচ করে প্রতি জুমার দিনে", note: "জামাই আদরের খাঁটি স্বাদ বহুগুণ বাড়ায়" },
+            { name: "Cap. Bazar-Pura-Forte", dose: "১টি করে শুক্রবার সকালে", note: "সকালের বাজারের থলে টানার অলৌকিক শক্তি দেয়" },
+            { name: "Inj. Shanti-Plus 1000iu", dose: "ঝগড়ার আভাস দেখা দিলে ১ পুশ", note: "বউয়ের রাগ সঙ্গে সঙ্গে শান্ত করে" },
+            { name: "Ointment Bou-Er-Ranna Gel", dose: "খাওয়ার পর পরই ঠোঁটে লাগাতে হয়", note: "খাবারের চরম প্রশংসার বাক্য স্বয়ংক্রিয়ভাবে বের হয়" },
+            { name: "Tab. Taarif-300mg", dose: "দিনে ৩ বার (নতুন শাড়ি পরলে)", note: "বউয়ের সুখ্যাতি করার ক্ষমতা বৃদ্ধি করে" },
+            { name: "Drop. Shoshur-Ador-Drop", dose: "প্রতি শুক্রবার জুমার পর ২ ফোটা", note: "শাশুড়ির কাছ থেকে সেরা পিস মাংস পাওয়ার টনিক" }
+        ];
 
-function roundRect(ctx,x,y,w,h,r){
- ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fill();
-}
-function coverImage(ctx,img,x,y,w,h){
- const ir=img.width/img.height, br=w/h;let sx=0,sy=0,sw=img.width,sh=img.height;
- if(ir>br){sw=img.height*br;sx=(img.width-sw)/2}else{sh=img.width/br;sy=(img.height-sh)/2}
- ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h);
-}
+        const marriedDoctorAdvices = [
+            "শুক্রবারে বাজারে গিয়ে দরদাম না করে বউয়ের দেওয়া বাজারের ফর্দ হুবহু অনুসরণ করুন।",
+            "শাশুড়ির হাতের রান্না খাওয়া মাত্রই 'জীবনের সেরা খাসির রেজালা' ডায়লগটি দিতে ভুলবেন না।",
+            "প্রতি শুক্রবার জুমার পর বউকে সঙ্গে নিয়ে ঘুরতে যাওয়া সুস্বাস্থ্যের সেরা লক্ষণ।",
+            "বউয়ের নতুন শাড়ি বা সাজ দেখলে সঙ্গে সঙ্গে মন খুলে প্রশংসা করুন, এতে সংসার চিরশান্তিময় থাকবে।"
+        ];
 
-function drawCert(name,n){
- const c=$('cert'),ctx=c.getContext('2d');
- 
- // Rich Royal Background Gradient
- const g=ctx.createLinearGradient(0,0,1200,1500);
- g.addColorStop(0,'#fffbf2');
- g.addColorStop(0.5,'#fff4e0');
- g.addColorStop(1,'#fae6cc');
- ctx.fillStyle=g;
- ctx.fillRect(0,0,1200,1500);
+        // Single Food Menus
+        const singleBachelorFoodPool = [
+            "মেসের পাতলা ডাল + ডিম ভাজি",
+            "গতকালকের বাসি তেহারি + ঠাণ্ডা কোক",
+            "১ কাপ র-চা + ২টা টোস্ট বিস্কুট",
+            "মোড়ের দোকানের হাফ-কাচ্চি (আলু বেশি)",
+            "ব্যাচেলর স্পেশাল শুকনা খিচুড়ি + ডিম সেদ্ধ"
+        ];
 
- // Luxury Gold Border Design
- ctx.strokeStyle='#b8860b';
- ctx.lineWidth=14;
- ctx.strokeRect(35,35,1130,1430);
+        const singleMarriedFoodPool = [
+            "শ্বশুরবাড়ির শাহী খাসির রেজালা + জর্দা",
+            "শাশুড়ির স্পেশাল হাঁসের মাংস + চিতই পিঠা",
+            "৭ পদের শাহী বিরিয়ানি + বোরহানি + জালি কাবাব",
+            "মোরগ পোলাও + ডিম কোপতা + স্পেশাল ফিরনি",
+            "সরষে ইলিশ + খাসির চাপ + কাশ্মীরি জর্দা"
+        ];
 
- ctx.strokeStyle='#d4af37';
- ctx.lineWidth=4;
- ctx.strokeRect(58,58,1084,1384);
+        // Married Food Menus
+        const marriedAteFoodPool = [
+            "শ্বশুরবাড়ির শাহী খাসির রেজালা + ৭ পদের কাচ্চি বিরিয়ানি",
+            "বউয়ের হাতের স্পেশাল মোরগ পোলাও + ডিম কোপতা + জর্দা",
+            "শাশুড়ির হাতের স্পেশাল হাঁসের মাংস + চিতই পিঠা",
+            "খাসির লেগ রোস্ট + শাহী ফিরনি + স্পেশাল বোরহানি",
+            "সরষে ইলিশ + খাসির চাপ + কাশ্মীরি জর্দা"
+        ];
 
- // Inner corner decorations
- ctx.fillStyle='#b8860b';
- ctx.fillRect(55, 55, 30, 30);
- ctx.fillRect(1115, 55, 30, 30);
- ctx.fillRect(55, 1415, 30, 30);
- ctx.fillRect(1115, 1415, 30, 30);
+        const marriedReceivedFoodPool = [
+            "এক বাটি গরম শাহী ক্ষীর + ১ গ্লাস স্পেশাল বোরহানি",
+            "শাশুড়ির হাতে বানানো গরম গরম স্পেশাল ফিরনি",
+            "সন্ধ্যাবেলার বিশেষ ঝাল পিঠা + এলাচি চা",
+            "বউয়ের নিজ হাতে বানানো স্পেশাল ডেজার্ট"
+        ];
 
- // Header Badge / Crest
- ctx.textAlign='center';
- ctx.fillStyle='#78350f';
- ctx.font='700 32px "Hind Siliguri", sans-serif';
- ctx.fillText('✨ OFFICIAL ROYAL DECREE OF FREEDOM ✨',600,140);
+        // Image Upload Preview Logic
+        document.getElementById('userPhoto').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    const img = new Image();
+                    img.onload = function() {
+                        userPhotoObj = img;
+                        const previewImg = document.getElementById('photoPreview');
+                        previewImg.src = event.target.result;
+                        previewImg.classList.remove('hidden');
+                        document.getElementById('photoPlaceholder').classList.add('hidden');
+                    };
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
- ctx.font='700 68px "Hind Siliguri", sans-serif';
- ctx.fillStyle='#581c87';
- ctx.fillText('বিশেষ রাজকীয় সনদপত্র',600,225);
- 
- ctx.font='600 32px "Hind Siliguri", sans-serif';
- ctx.fillStyle='#9a3412';
- ctx.fillText('বউ ছাড়া কত শুক্রবার পার হয়েছে?',600,285);
+        // Number translation helper
+        function toBnNum(num) {
+            const bn = {'0':'০','1':'১','2':'২','3':'৩','4':'৪','5':'৫','6':'৬','7':'৭','8':'৮','9':'৯'};
+            return num.toString().replace(/\d/g, d => bn[d]);
+        }
 
- // Avatar Frame with Gold Accent
- ctx.save();
- ctx.beginPath();
- ctx.arc(600,480,165,0,Math.PI*2);
- ctx.clip();
- if(imageObj) {
-     coverImage(ctx,imageObj,435,315,330,330);
- } else {
-     ctx.fillStyle='#fde68a';
-     ctx.fillRect(435,315,330,330);
-     ctx.font='110px sans-serif';
-     ctx.fillStyle='#b45309';
-     ctx.fillText('🤵',600,525);
- }
- ctx.restore();
- 
- // Outer ring for photo
- ctx.strokeStyle='#b8860b';
- ctx.lineWidth=10;
- ctx.beginPath();
- ctx.arc(600,480,170,0,Math.PI*2);
- ctx.stroke();
+        function toggleMarriageDate() {
+            const status = document.getElementById('userStatus').value;
+            const container = document.getElementById('marriageDateContainer');
+            if(status === 'married') {
+                container.classList.remove('hidden');
+            } else {
+                container.classList.add('hidden');
+            }
+        }
 
- // Recipient Name
- ctx.fillStyle='#1e293b';
- ctx.font='700 56px "Hind Siliguri", sans-serif';
- ctx.fillText(name,600,735);
+        let globalData = {};
 
- ctx.font='500 30px "Hind Siliguri", sans-serif';
- ctx.fillStyle='#475569';
- ctx.fillText('অত্যন্ত সাহসিকতা ও সফলতার সাথে সম্পূর্ণ স্বাধীনতায়',600,800);
+        function calculateAll() {
+            const name = document.getElementById('userName').value.trim() || 'ইমরান হোসেন';
+            const dobVal = document.getElementById('dobInput').value;
+            const status = document.getElementById('userStatus').value;
+            const marriageVal = document.getElementById('marriageInput').value;
 
- // Big Counter Value
- ctx.fillStyle='#c2410c';
- ctx.font='700 140px "Hind Siliguri", sans-serif';
- ctx.fillText(bn(n),600,970);
+            if(!dobVal) return;
 
- ctx.fillStyle='#1e293b';
- ctx.font='700 42px "Hind Siliguri", sans-serif';
- ctx.fillText('টি শুক্রবার অতিবাহিত করেছেন! 👑🚀',600,1040);
+            const startDate = new Date(dobVal);
+            let endDate = new Date();
 
- // Disclaimer Box
- ctx.fillStyle='#ffffff';
- roundRect(ctx,185,1100,830,110,25);
- ctx.strokeStyle='#fcd34d';
- ctx.lineWidth=2;
- ctx.beginPath();ctx.roundRect(185,1100,830,110,25);ctx.stroke();
+            if(status === 'married') {
+                if(!marriageVal) {
+                    showToast('বিবাহের তারিখ লিখুন!');
+                    return;
+                }
+                const marriageDate = new Date(marriageVal);
+                if(marriageDate < startDate) {
+                    showToast('বিবাহের তারিখ জন্মতারিখের পরে হতে হবে!');
+                    return;
+                }
+            }
 
- ctx.fillStyle='#78350f';
- ctx.font='600 26px "Hind Siliguri", sans-serif';
- ctx.fillText('এই সার্টিফিকেটটি খাঁটি আনন্দ ও বিনোদনের উদ্দেশ্যে প্রদান করা হলো।',600,1168);
+            if(startDate > endDate) {
+                showToast('জন্মতারিখ ভুল দিয়েছেন!');
+                return;
+            }
 
- // Footer: Date & Signature
- const d=new Date().toLocaleDateString('bn-BD',{year:'numeric',month:'long',day:'numeric'});
- ctx.fillStyle='#64748b';
- ctx.font='500 24px "Hind Siliguri", sans-serif';
- ctx.fillText('জারির তারিখ: '+d,600,1310);
+            // Friday Counter
+            let fridays = 0;
+            let temp = (status === 'married') ? new Date(marriageVal) : new Date(startDate);
 
- ctx.fillStyle='#1e293b';
- ctx.font='700 26px "Hind Siliguri", sans-serif';
- ctx.fillText('Developer: Imran (Royal Bureau)',600,1380);
-}
+            while(temp <= endDate) {
+                if(temp.getDay() === 5) fridays++;
+                temp.setDate(temp.getDate() + 1);
+            }
 
-$('make').onclick=()=>{
- const name=$('name').value.trim(), dob=$('dob').value;
- if(!name){showMsg('দয়া করে আপনার নাম লিখুন 🙂');return}
- if(!dob){showMsg('দয়া করে আপনার জন্মতারিখ নির্বাচন করুন 📅');return}
- const n=fridayCount(dob);if(n===null){showMsg('সঠিক জন্মতারিখ দিন।');return}
- 
- document.fonts.ready.then(() => {
-     $('count').textContent=bn(n);
-     $('details').textContent=`${name}, জন্মতারিখ থেকে আজ পর্যন্ত আপনার জীবনে মোট ${bn(n)}টি শুক্রবার এসেছে।`;
-     $('result').style.display='block';$('certWrap').style.display='block';
-     drawCert(name,n);
-     $('certWrap').scrollIntoView({behavior:'smooth'});
- });
-};
+            // Status Specific Setup
+            let biryaniLoss = 0;
+            let savedGoats = 0;
+            let relativeQuestions = 0;
+            let badge = '';
 
-function blob(){return new Promise(r=>$('cert').toBlob(r,'image/png',1))}
+            if (status === 'single') {
+                biryaniLoss = fridays * 250; 
+                savedGoats = Math.floor(fridays * 0.35);
+                relativeQuestions = fridays * 3;
 
-$('download').onclick=async()=>{
- const b=await blob(),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='amar-shukrobar-certificate.png';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
-};
+                if(fridays < 500) badge = 'লেভেল ১: স্বাধীন নবাগত';
+                else if(fridays < 1000) badge = 'লেভেল ২: কাচ্চি মিসিং কিং';
+                else if(fridays < 1500) badge = 'লেভেল ৩: কাজী অফিসের চিরস্থায়ী কাস্টমার';
+                else badge = 'লেভেল ৪: মোস্ট ওয়ান্টেড সিঙ্গেল!';
 
-$('share').onclick=async()=>{
- const b=await blob(),f=new File([b],'amar-shukrobar-certificate.png',{type:'image/png'});
- if(navigator.canShare&&navigator.canShare({files:[f]})){try{await navigator.share({title:'আমার শুক্রবার সার্টিফিকেট',files:[f]})}catch(e){}}
- else{showMsg('আপনার ব্রাউজারে সরাসরি ইমেজ শেয়ার সাপোর্ট করছে না। প্রথমে সেভ করে তারপর শেয়ার করুন।')}
-};
-</script>
+                // UI Text Changes for Single
+                document.getElementById('resMainTitle').innerText = 'মোট একাকী শুক্রবার';
+                document.getElementById('labelBiryani').innerText = 'কাচ্চি বিরিয়ানি লস';
+                document.getElementById('labelGoats').innerText = 'বেঁচে যাওয়া খাসি';
+                document.getElementById('iconQuestions').innerText = '🗣️';
+                document.getElementById('labelQuestions').innerText = '"বিয়ে কবে করবা?" শোনা কথা';
+
+                document.getElementById('foodBox1Label').innerHTML = '<i class="fa-solid fa-circle-xmark"></i> আজ বাস্তবতায় যা খেলেন (একাকী):';
+                document.getElementById('foodBox2Label').innerHTML = '<i class="fa-solid fa-circle-check"></i> শ্বশুরবাড়িতে যা আজ মিস হলো:';
+
+                document.getElementById('rxDisease').innerText = 'ক্রনিকশুক্রবার একাকীত্ব সিন্ড্রোম';
+                document.getElementById('rxCondition').innerText = 'জটিল সিঙ্গেল';
+
+                document.getElementById('radarTitle').innerText = 'কাজী অফিস জিপিএস রাডার';
+                document.getElementById('radarText').innerText = 'স্ক্যানিং চলছে... নিকটস্থ কাজী অফিস মাত্র ২০০ মিটার দূরে অপেক্ষা করছে!';
+
+            } else { // Married
+                biryaniLoss = fridays * 2; 
+                savedGoats = Math.floor(fridays * 0.8); 
+                relativeQuestions = fridays * 4; 
+
+                badge = 'পরম সুখী অভিজ্ঞ বিবাহিত';
+
+                // UI Text Changes for Married
+                document.getElementById('resMainTitle').innerText = 'বিয়ের পর বউয়ের সাথে পার করা শুক্রবার';
+                document.getElementById('labelBiryani').innerText = 'কাচ্চি/বিরিয়ানি উপভোগ (প্লেট)';
+                document.getElementById('labelGoats').innerText = 'পেটে পুরেছেন খাসি/গরু';
+                document.getElementById('iconQuestions').innerText = '💖';
+                document.getElementById('labelQuestions').innerText = 'বউয়ের মিষ্টি কথা শোনার সংখ্যা';
+
+                document.getElementById('foodBox1Label').innerHTML = '<i class="fa-solid fa-utensils text-emerald-400"></i> আজ শ্বশুরবাড়িতে/ঘরে যা পেটপুজো করলেন:';
+                document.getElementById('foodBox2Label').innerHTML = '<i class="fa-solid fa-gift text-amber-400"></i> বউয়ের থেকে আজ স্পেশাল যা পেলেন:';
+
+                document.getElementById('rxDisease').innerText = 'অতিরিক্ত সুখ ও জামাই আদর সিন্ড্রোম';
+                document.getElementById('rxCondition').innerText = 'পরম সুখী বিবাহিত';
+
+                document.getElementById('radarTitle').innerText = 'সংসার সুখের রাডার';
+                document.getElementById('radarText').innerText = 'অল ইজ ওয়েল! আপনার দাম্পত্য জীবন সুখে ও শান্তিতে অতিবাহিত হচ্ছে!';
+            }
+
+            // Save Global Data for Canvas Certificate
+            globalData = {
+                name,
+                status,
+                fridays,
+                biryaniLoss,
+                badge,
+                savedGoats,
+                relativeQuestions
+            };
+
+            // Render Metrics to DOM
+            document.getElementById('resFridays').innerText = toBnNum(fridays);
+            document.getElementById('resLevelBadge').innerText = badge;
+            document.getElementById('resBiryaniLoss').innerText = (status === 'single' ? '৳' : '') + toBnNum(biryaniLoss.toLocaleString('en-IN')) + (status === 'married' ? ' প্লেট' : '');
+            document.getElementById('resSavedGoats').innerText = toBnNum(savedGoats) + ' টি';
+            document.getElementById('resQuestions').innerText = toBnNum(relativeQuestions) + ' বার';
+
+            // Render Dynamic Prescription and Food Menu automatically
+            document.getElementById('rxPatientName').innerText = name;
+            generatePrescription(status);
+            refreshFoodMenu(status);
+
+            // Draw Official Certificate Canvas
+            drawOfficialCertificate();
+
+            // Show Result Section
+            const resArea = document.getElementById('resultArea');
+            resArea.classList.remove('hidden');
+            resArea.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Generate Dynamic Medical Prescription
+        function generatePrescription(status) {
+            const pool = (status === 'married') ? marriedMedicinePool : singleMedicinePool;
+            const advices = (status === 'married') ? marriedDoctorAdvices : singleDoctorAdvices;
+
+            const shuffledMeds = [...pool].sort(() => 0.5 - Math.random()).slice(0, 3);
+            const medsListElem = document.getElementById('rxMedsList');
+            medsListElem.innerHTML = '';
+
+            shuffledMeds.forEach((med, idx) => {
+                const li = document.createElement('li');
+                li.className = 'flex flex-col sm:flex-row sm:justify-between border-b border-slate-200 pb-1.5';
+                li.innerHTML = `
+                    <div>
+                        <span class="text-blue-900 font-bold">${idx + 1}. ${med.name}</span>
+                        <span class="text-xs text-slate-500 block sm:inline sm:ml-2">(${med.note})</span>
+                    </div>
+                    <span class="text-xs font-semibold text-rose-600 bg-rose-50 px-2 py-0.5 rounded border border-rose-200 mt-1 sm:mt-0 self-start sm:self-center">${med.dose}</span>
+                `;
+                medsListElem.appendChild(li);
+            });
+
+            const randomAdvice = advices[Math.floor(Math.random() * advices.length)];
+            document.getElementById('rxDoctorAdvice').innerText = `"${randomAdvice}"`;
+        }
+
+        // Refresh Food Menu Dynamically
+        function refreshFoodMenu(status) {
+            let item1 = '', item2 = '';
+
+            if (status === 'married') {
+                item1 = marriedAteFoodPool[Math.floor(Math.random() * marriedAteFoodPool.length)];
+                item2 = marriedReceivedFoodPool[Math.floor(Math.random() * marriedReceivedFoodPool.length)];
+            } else {
+                item1 = singleBachelorFoodPool[Math.floor(Math.random() * singleBachelorFoodPool.length)];
+                item2 = singleMarriedFoodPool[Math.floor(Math.random() * singleMarriedFoodPool.length)];
+            }
+
+            document.getElementById('bachelorMenu').innerText = item1;
+            document.getElementById('marriedMenu').innerText = item2;
+        }
+
+        // DRAW OFFICIAL CERTIFICATE ON CANVAS
+        function drawOfficialCertificate() {
+            const canvas = document.getElementById('certificateCanvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = 750;
+            canvas.height = 1000;
+
+            // 1. Background Parchment Paper Effect
+            ctx.fillStyle = '#fffdfa';
+            ctx.fillRect(0, 0, 750, 1000);
+
+            // 2. Ornate Triple Border
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 12;
+            ctx.strokeRect(20, 20, 710, 960);
+
+            ctx.strokeStyle = '#f43f5e';
+            ctx.lineWidth = 3;
+            ctx.strokeRect(34, 34, 682, 932);
+
+            drawCornerPattern(ctx, 38, 38);
+            drawCornerPattern(ctx, 712, 38, true, false);
+            drawCornerPattern(ctx, 38, 962, false, true);
+            drawCornerPattern(ctx, 712, 962, true, true);
+
+            // 3. Header Government / Board Title
+            ctx.fillStyle = '#991b1b';
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 22px "Hind Siliguri", sans-serif';
+            ctx.fillText('গণপ্রজাতন্ত্রী ব্যাচেলর ও জুমার জীবন মূল্যায়ন বোর্ড', 375, 90);
+
+            ctx.fillStyle = '#475569';
+            ctx.font = '14px "Hind Siliguri", sans-serif';
+            ctx.fillText('রেজিস্ট্রেশন নম্বর: BCL-2026-FRIDAY-007', 375, 115);
+
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(150, 130);
+            ctx.lineTo(600, 130);
+            ctx.stroke();
+
+            // 4. Main Certificate Header Title
+            ctx.fillStyle = '#b45309';
+            ctx.font = 'bold 38px "Tiro Bangla", serif';
+            const certTitle = (globalData.status === 'married') ? 'সুখী বিবাহিত জীবন সনদপত্র' : 'অফিশিয়াল একাকী জুমার সনদপত্র';
+            ctx.fillText(certTitle, 375, 185);
+
+            // 5. User Photo Box
+            const photoX = 540;
+            const photoY = 220;
+            const photoW = 120;
+            const photoH = 150;
+
+            if (userPhotoObj) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.rect(photoX, photoY, photoW, photoH);
+                ctx.clip();
+
+                const aspect = userPhotoObj.width / userPhotoObj.height;
+                let drawW = photoW;
+                let drawH = photoH;
+                if (aspect > 1) {
+                    drawW = photoH * aspect;
+                } else {
+                    drawH = photoW / aspect;
+                }
+                const drawX = photoX + (photoW - drawW) / 2;
+                const drawY = photoY + (photoH - drawH) / 2;
+
+                ctx.drawImage(userPhotoObj, drawX, drawY, drawW, drawH);
+                ctx.restore();
+
+                ctx.strokeStyle = '#d97706';
+                ctx.lineWidth = 4;
+                ctx.strokeRect(photoX, photoY, photoW, photoH);
+            } else {
+                ctx.fillStyle = '#f1f5f9';
+                ctx.fillRect(photoX, photoY, photoW, photoH);
+                ctx.strokeStyle = '#cbd5e1';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(photoX, photoY, photoW, photoH);
+                ctx.fillStyle = '#64748b';
+                ctx.font = '40px Arial';
+                ctx.fillText('👤', photoX + 60, photoY + 90);
+            }
+
+            // 6. Certificate Body Text
+            ctx.textAlign = 'left';
+            ctx.fillStyle = '#1e293b';
+            ctx.font = '18px "Hind Siliguri", sans-serif';
+            ctx.fillText('এতদ্বারা অতি সসম্মানে প্রত্যয়ন করা যাইতেছে যে,', 70, 240);
+
+            ctx.fillStyle = '#b91c1c';
+            ctx.font = 'bold 32px "Tiro Bangla", serif';
+            ctx.fillText(globalData.name, 70, 285);
+
+            ctx.fillStyle = '#334155';
+            ctx.font = '18px "Hind Siliguri", sans-serif';
+            if (globalData.status === 'married') {
+                ctx.fillText('তিনি বিবাহের পর অত্যন্ত সফলতার সহিত বউয়ের সাথে', 70, 330);
+                ctx.fillText('মোট ', 70, 365);
+                
+                ctx.fillStyle = '#b45309';
+                ctx.font = 'bold 28px "Hind Siliguri", sans-serif';
+                const fText = toBnNum(globalData.fridays) + ' টি';
+                ctx.fillText(fText, 110, 365);
+
+                ctx.fillStyle = '#334155';
+                ctx.font = '18px "Hind Siliguri", sans-serif';
+                ctx.fillText(' শুক্রবার পার করিয়া পারিবারিক সুখের অনন্য নজির গড়েছেন।', 110 + ctx.measureText(fText).width + 10, 365);
+            } else {
+                ctx.fillText('তিনি চরম ধৈর্য ও সাহসিকতার সহিত বউ ছাড়া একাকী মোট', 70, 330);
+                
+                ctx.fillStyle = '#b91c1c';
+                ctx.font = 'bold 30px "Hind Siliguri", sans-serif';
+                const fText = toBnNum(globalData.fridays) + ' টি';
+                ctx.fillText(fText, 70, 368);
+
+                ctx.fillStyle = '#334155';
+                ctx.font = '18px "Hind Siliguri", sans-serif';
+                ctx.fillText(' শুক্রবার পার করিয়া ব্যাচেলর জীবনে ইতিহাস সৃষ্টি করিয়াছেন।', 70 + ctx.measureText(fText).width + 10, 368);
+            }
+
+            // 7. Certified Metrics Box
+            ctx.fillStyle = '#fff7ed';
+            ctx.fillRect(70, 420, 610, 210);
+            ctx.strokeStyle = '#fed7aa';
+            ctx.lineWidth = 2;
+            ctx.strokeRect(70, 420, 610, 210);
+
+            ctx.fillStyle = '#9a3412';
+            ctx.font = 'bold 20px "Hind Siliguri", sans-serif';
+            ctx.fillText('📋 সংরক্ষিত তথ্য ও অফিশিয়াল রেকর্ড:', 90, 455);
+
+            ctx.fillStyle = '#1e293b';
+            ctx.font = '17px "Hind Siliguri", sans-serif';
+
+            if (globalData.status === 'married') {
+                ctx.fillText(`• মোট কাচ্চি বিরিয়ানি পেটপুজো: ${toBnNum(globalData.biryaniLoss)} প্লেট`, 100, 495);
+                ctx.fillText(`• পেটে পুরেছেন খাসি/গরুর মাংস: ${toBnNum(globalData.savedGoats)} টি জুমার খাসি`, 100, 530);
+                ctx.fillText(`• বউয়ের প্রশংসামূলক কথা শুনেছেন: ${toBnNum(globalData.relativeQuestions)} বার`, 100, 565);
+                ctx.fillText(`• অর্জিত রাষ্ট্রীয় খেতাব: ${globalData.badge}`, 100, 600);
+            } else {
+                ctx.fillText(`• পকেটের আনুমানিক বিরিয়ানি লস: ৳${toBnNum(globalData.biryaniLoss.toLocaleString('en-IN'))}`, 100, 495);
+                ctx.fillText(`• বিয়ে না করায় জীবন রক্ষা পাওয়া খাসি: ${toBnNum(globalData.savedGoats)} টি`, 100, 530);
+                ctx.fillText(`• "বিয়ে কবে করবা?" প্রশ্নের মোকাবিলা: ${toBnNum(globalData.relativeQuestions)} বার`, 100, 565);
+                ctx.fillText(`• অর্জিত ব্যাচেলর পদবী: ${globalData.badge}`, 100, 600);
+            }
+
+            // 8. Official Golden Stamp Seal
+            ctx.save();
+            ctx.translate(180, 770);
+            ctx.beginPath();
+            ctx.arc(0, 0, 55, 0, Math.PI * 2);
+            ctx.fillStyle = '#b45309';
+            ctx.fill();
+            ctx.strokeStyle = '#fef3c7';
+            ctx.lineWidth = 3;
+            ctx.stroke();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.font = 'bold 13px "Hind Siliguri", sans-serif';
+            ctx.fillText('কাজী অনুমোদিত', 0, -10);
+            ctx.font = '22px Arial';
+            ctx.fillText('✓', 0, 15);
+            ctx.font = 'bold 11px "Hind Siliguri", sans-serif';
+            ctx.fillText('অফিশিয়াল সিল', 0, 32);
+            ctx.restore();
+
+            // 9. Signatures
+            ctx.textAlign = 'center';
+            ctx.fillStyle = '#334155';
+
+            ctx.font = 'bold 18px "Reenie Beanie", cursive';
+            ctx.fillText('Imran Hossain Kazi', 180, 865);
+            ctx.strokeStyle = '#475569';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath(); ctx.moveTo(100, 875); ctx.lineTo(260, 875); ctx.stroke();
+            ctx.font = 'bold 14px "Hind Siliguri", sans-serif';
+            ctx.fillText('সভাপতি, জাতীয় ব্যাচেলর সমিতি', 180, 895);
+
+            ctx.font = 'bold 22px "Reenie Beanie", cursive';
+            ctx.fillText('Dr. Kazi Md. Imran', 560, 865);
+            ctx.beginPath(); ctx.moveTo(480, 875); ctx.lineTo(640, 875); ctx.stroke();
+            ctx.font = 'bold 14px "Hind Siliguri", sans-serif';
+            ctx.fillText('ডা. কাজী মো: ইমরান', 560, 895);
+            ctx.font = '12px "Hind Siliguri", sans-serif';
+            ctx.fillStyle = '#64748b';
+            ctx.fillText('চিফ স্পেশালিস্ট (বিএমডিসি রেজি: ৭৭০৭)', 560, 915);
+        }
+
+        function drawCornerPattern(ctx, x, y, flipX = false, flipY = false) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.scale(flipX ? -1 : 1, flipY ? -1 : 1);
+            ctx.strokeStyle = '#d97706';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(25, 0);
+            ctx.moveTo(0, 0);
+            ctx.lineTo(0, 25);
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        function downloadCertificate() {
+            const canvas = document.getElementById('certificateCanvas');
+            const link = document.createElement('a');
+            link.download = `${globalData.name}_Friday_Certificate.png`;
+            link.href = canvas.toDataURL('image/png', 1.0);
+            link.click();
+
+            showToast('অফিশিয়াল সনদপত্র ডাউনলোড হয়েছে!');
+        }
+
+        function copyShareText() {
+            if(!globalData.fridays) return;
+
+            let shareText = '';
+            if (globalData.status === 'married') {
+                shareText = `💍 নাম: ${globalData.name}\nবিয়ের পর বউয়ের সাথে মোট ${toBnNum(globalData.fridays)} টি শুক্রবার পার করেছি!\n🍗 কাচ্চি বিরিয়ানি উপভোগ: ${toBnNum(globalData.biryaniLoss)} প্লেট\n🥩 পেটে পুরেছি খাসি/গরু: ${toBnNum(globalData.savedGoats)} টি\n🏆 স্ট্যাটাস: ${globalData.badge}\n\nআপনার ডিজিটাল জুমার সনদপত্র তৈরি করুন এখনই!`;
+            } else {
+                shareText = `🕌 নাম: ${globalData.name}\nবউ ছাড়া মোট ${toBnNum(globalData.fridays)} টি শুক্রবার একা পার করেছি!\n🍗 পকেটের বিরিয়ানি লস: ৳${toBnNum(globalData.biryaniLoss.toLocaleString('en-IN'))}\n🐐 আমার জন্য বেঁচে গেছে ${toBnNum(globalData.savedGoats)} টি খাসি!\n🏆 স্ট্যাটাস: ${globalData.badge}\n\nআপনার ফটো সনদপত্রসহ ব্যাচেলর জুমার হিসাব বের করুন এখনই!`;
+            }
+
+            const temp = document.createElement('textarea');
+            temp.value = shareText;
+            document.body.appendChild(temp);
+            temp.select();
+            document.execCommand('copy');
+            document.body.removeChild(temp);
+
+            showToast('স্ট্যাটাস কপি হয়েছে! ফেসবুকে পোস্ট করুন।');
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastText').innerText = msg;
+            toast.classList.remove('opacity-0', 'pointer-events-none');
+            setTimeout(() => {
+                toast.classList.add('opacity-0', 'pointer-events-none');
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
+
+```
